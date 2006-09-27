@@ -1,0 +1,60 @@
+<?php
+	#*****************************************************************************
+	#
+	# articles.rss
+	#
+	# Author: 		Wayne Beaton
+	# Date:			2006-07-18
+	#
+	# Description: This page generates an RSS feed containing resources. 
+	#   An optional parameter (filter) can be provided in the request header
+	#   to specify what the feed will contain. To obtain only recent articles,
+	#   you would specify "/articles/articles.rss?filter=recent". If no filter
+	#   is specified, the recent articles are returned.
+	#****************************************************************************
+	header('Content-type: text/xml');
+	
+	// The next line needs to occur first in the file.
+	echo "<?xml version=\"1.0\"?>\n";
+	echo "<!DOCTYPE doc [";
+	echo "<!ENTITY trade \"TM\">\n";
+	echo "]>";
+	
+	require_once("scripts/resources_mgr.php");
+	require_once("scripts/filter_core.php");
+	
+	$filter = new Filter();	
+	$filter->populate_from_html_request_header();
+	$filter_summary = $filter->get_summary();
+	$filter_string = $filter->get_url_parameters();	
+	$resources = $Resources->get_resources($filter);
+	$resources_root = 'http://local.phoenix.eclipse.org/resources';
+	
+	echo <<<EORSS
+<rss version="2.0">
+  <channel>
+    <title>Eclipse Resources</title>
+    <description>$filter_summary</description>
+    <link><![CDATA[$resources_root/resources.php?$filter_string]]></link>
+    <image>
+      <url>$resources_root/images/eclipse.png</url>
+      <title>eclipse.org</title>
+      <link>$resources_root</link>
+    </image>
+EORSS;
+	foreach ($resources as $resource) {
+		if (!$filter->show_resource($resource)) continue;
+		echo "\n\t<item>";
+		echo "\n\t\t<title><![CDATA[$resource->title]]></title>";
+		echo "\n\t\t<link>$resources_root/resources.php?id=$resource->id</link>";
+		echo "\n\t\t<description><![CDATA[$resource->description]]></description>";
+		$date = date("D, j M Y  12:00:00 \G\M\T", $resource->get_date());
+		echo "\n\t\t<pubDate>$date</pubDate>";
+		echo "\n\t</item>";
+	}
+	
+	echo <<<EORSS
+	</channel>
+</rss>
+EORSS;
+?>

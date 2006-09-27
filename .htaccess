@@ -1,0 +1,2 @@
+# Make sure that requests for RSS files are handled
+AddType application/x-httpd-php .rss

@@ -33,7 +33,7 @@ class ResourcesHtml {
 	function get_resources_table($resources, $filter) {
 		ob_start();
 		?>
-		<table class="resourcesTable" cellspacing="0" width="100%">
+		<table class="resourcesTableHeader" cellspacing="0" width="100%">
 		<tr>
 			<td colspan=4 class="tableHeaderTitle">Technical Resources</td>
 		</tr>

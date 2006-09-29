@@ -197,6 +197,9 @@ a.norgie {
 	border: 1px solid black;
 }
 
+.resourcesTableHeader {
+}
+
 .resourcesData td {
 	border-top: 1px solid darkgray;
 	vertical-align: top;

@@ -143,7 +143,7 @@ a.norgie {float:left; clear:all;height: 20px; width: 10px; margin-top:5px; margi
 }
 
 .headerBar td {
-	background-image:url('images/bar.jpg');
+	background-image:url('/images/bar.jpg');
 	font-size:110%;
 	font-weight:bold;
 }

@@ -191,8 +191,7 @@ a.norgie {
 	background-image: url('/images/bar.jpg');
 	font-size: 110%;
 	font-weight: bold;
-	border:1px solid black;
-	border-bottom:0px;
+	border-top:1px solid black;
 }
 
 .headerBar span {

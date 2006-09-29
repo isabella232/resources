@@ -57,6 +57,7 @@ class ResourcesHtml {
 				
 				<td width="50%">
 					<div class="invisible" id="<?=$countID;?>">
+						<a name="<?=$countID;?>" class="norgie" onClick="t('<?=$countID;?>','<?=$countID;?>a')"></a>
 						<a onclick="t('<?=$countID;?>', '<?=$countID . 'a';?>')"><?=htmlentities($resource->title);?></a>
 						<? if ($_GET['edit']) {?>
 								<a href="edit_resource.php?id=<?=$resource->id?>">[edit]</a>

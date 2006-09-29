@@ -75,7 +75,7 @@ class ResourcesHtml {
 				<td colspan="6">
 					<div class="invisible" id="<?=$countID . 'a';?>">
 					<div class="item_contents">
-						<table border=\"0\"><tbody><tr>
+						<table><tbody><tr>
 						<td valign="top"><?=htmlentities($resource->description);?>
 						<p><?=$this->get_resource_categories($resource);?> 
 							<? if ($_GET['edit']) {?>

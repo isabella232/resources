@@ -187,6 +187,12 @@ a.norgie {
 	font-weight: bold;
 }
 
+.resourcesHeader {
+	background-image: url('/images/bar.jpg');
+	font-size: 110%;
+	font-weight: bold;
+}
+
 .headerBar span {
 	font-size: 80%;
 	font-weight: normal;

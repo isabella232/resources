@@ -55,7 +55,7 @@ class ResourcesHtml {
 			?>
 			<tr class="resourcesData">
 				
-				<td>
+				<td width="50%">
 					<div class="invisible" id="<?=$countID;?>">
 						<a onclick="t('<?=$countID;?>', '<?=$countID . 'a';?>')"><?=htmlentities($resource->title);?></a>
 						<? if ($_GET['edit']) {?>
@@ -63,12 +63,12 @@ class ResourcesHtml {
 						<?}?>
 					</div>
 				</td>
-				<td valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
-				<td><?
+				<td width="10%" valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
+				<td width="10%"><?
 				//if ($resource->links[0]->date != 0)
 				echo str_replace(" ", "&nbsp;", date("F Y", $resource->get_date()));
 				?></td>
-				<td align="center"><?=$this->get_languages($resource);?></td>
+				<td width="10%" align="center"><?=$this->get_languages($resource);?></td>
 			</tr>
 			<tr>
 				<td colspan="6">

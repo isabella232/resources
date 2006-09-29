@@ -60,7 +60,7 @@ a.norgie {float:left; clear:all;height: 20px; width: 10px; margin-top:5px; margi
 }
 
 .boxHeader{
-	background-image: url(images/bar.jpg);
+	background-image: url(/images/bar.jpg);
 	background-position: top left;
 	background-repeat: repeat-x;
 	border-top:1px solid #AAA;

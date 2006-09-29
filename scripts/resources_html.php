@@ -30,19 +30,23 @@ class ResourcesHtml {
 		return $GLOBALS['Resources'] -> get_resources($filter);
 	}
 	
-	function get_resources_table($resources, $filter, $color=null) {
+	function get_resources_table($resources, $filter) {
 		ob_start();
 		?>
-		<table class="resourcesTable <?=$color;?>" cellspacing="0">
+		<table class="resourcesTable" cellspacing="0">
 		<tr>
 			<td colspan=4 class="tableHeaderTitle">Technical Resources</td>
 		</tr>
 		<tr>
-			<td width="50%" class="resourcesHeader <?=$color;?>" <a href="?<?=$filter->get_url_parameters('title')?>">Title<?=$this->get_sort_icon($filter, 'title')?></a></td>
-			<td width="10%" class="resourcesHeader <?=$color;?>"><a href="?<?=$filter->get_url_parameters('type')?>">Type<?=$this->get_sort_icon($filter, 'type')?></a></td>
-			<td width="10%" class="resourcesHeader <?=$color;?>" <a href="?<?=$filter->get_url_parameters('date')?>">Date<?=$this->get_sort_icon($filter, 'date')?></a></td>
-			<td width="10%" class="resourcesHeader <?=$color;?> align="center">&nbsp;</td>
+			<td width="50%" class="resourcesHeader" <a href="?<?=$filter->get_url_parameters('title')?>">Title<?=$this->get_sort_icon($filter, 'title')?></a></td>
+			<td width="10%" class="resourcesHeader"><a href="?<?=$filter->get_url_parameters('type')?>">Type<?=$this->get_sort_icon($filter, 'type')?></a></td>
+			<td width="10%" class="resourcesHeader" <a href="?<?=$filter->get_url_parameters('date')?>">Date<?=$this->get_sort_icon($filter, 'date')?></a></td>
+			<td width="10%" class="resourcesHeader align="center">&nbsp;</td>
 		</tr>
+		</table>
+		<div class="resources">
+		<table class="resourcesTable" cellspacing="0">
+		
 		<?
 		$countID = 0;
 		foreach($resources as $resource) {
@@ -54,6 +58,9 @@ class ResourcesHtml {
 				<td>
 					<div class="invisible" id="<?=$countID;?>">
 						<a onclick="t('<?=$countID;?>', '<?=$countID . 'a';?>')"><?=htmlentities($resource->title);?></a>
+						<? if ($_GET['edit']) {?>
+								<a href="edit_resource.php?id=<?=$resource->id?>">[edit]</a>
+						<?}?>
 					</div>
 				</td>
 				<td valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
@@ -69,7 +76,11 @@ class ResourcesHtml {
 					<div class="item_contents">
 						<table border=\"0\"><tbody><tr>
 						<td valign="top"><?=htmlentities($resource->description);?>
-						<p><?=$this->get_resource_categories($resource);?></p>
+						<p><?=$this->get_resource_categories($resource);?> 
+							<? if ($_GET['edit']) {?>
+								<a href="edit_resource_categories.php?id=<?=$resource->id?>">[edit]</a>
+							<?}?>
+						</p>
 						<?=$this->get_links($resource);?></td>
 						<?=$resource->image ? "<td valign=\"top\"><img align=\"right\" src=\"$resource->image\"/></td>" : ''; ?>
 						</tr></tbody></table>
@@ -83,6 +94,7 @@ class ResourcesHtml {
 		}
 		?>
 		</table>
+		</div>
 		<?
 
 		$html = ob_get_contents();

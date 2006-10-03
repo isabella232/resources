@@ -32,7 +32,7 @@
 				<category id="<?= $category->id ?>"><?= utf8_encode($category->title) ?></category>
 			<? } ?>
 			<? foreach ($resource->links as $link) { ?>
-				<link id="<?= $link->id ?>" date="<?= date("M j, Y", $link->date)?>">
+				<link id="<?= $link->id ?>" date="<?= date("M j, Y", $link->date)?>" language="<?=$link->language?>">
 					<title><![CDATA[<?= $link->title ?>]]></title>
 					<path><![CDATA[<?= $link->path ?>]]></path>
 					<? foreach ($link->authors as $author) { ?>

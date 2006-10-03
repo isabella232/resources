@@ -8,16 +8,16 @@
 	#
 	# Description:
 	#****************************************************************************
-	header('Content-type: text/xml');
+	header('Content-type: text/xml; charset=utf-8');
 	require_once("scripts/resources_mgr.php");
 	$get = $_GET['get'];
-?>
+?><? echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"; ?>
 <? if ($get=='categories') { ?>
 	<? $categories = $Resources->get_categories();?>
 	<categories>
 		<? foreach($categories as $category) { ?>
 		<category id="<?=$category->id?>">
-			<name><![CDATA[<?=$category->name?>]]></name>
+			<name><?=utf8_encode($category->name)?></name>
 		</category>
 		<? } ?>
 	</categories>
@@ -26,18 +26,36 @@
 	<resources>
 		<? foreach($resources as $resource) { ?>
 		<resource id="<?=$resource->id?>" type="<?=$resource->type?>">
-			<name><![CDATA[<?=$resource->title?>]]></name>
+			<name><![CDATA[<?= utf8_encode($resource->title) ?>]]></name>
+			<description><![CDATA[<?= utf8_encode($resource->description)?>]]></description>
+			<? foreach ($resource->categories as $category) { ?>
+				<category id="<?= $category->id ?>"><?= utf8_encode($category->title) ?></category>
+			<? } ?>
+			<? foreach ($resource->links as $link) { ?>
+				<link id="<?= $link->id ?>" date="<?= date("M j, Y", $link->date)?>">
+					<title><![CDATA[<?= $link->title ?>]]></title>
+					<path><![CDATA[<?= $link->path ?>]]></path>
+					<? foreach ($link->authors as $author) { ?>
+						<author id="<?=$author->id?>">
+							<name><![CDATA[<?= utf8_encode($author->name) ?>]]></name>
+							<email><![CDATA[<?= utf8_encode($author->email) ?>]]></email>
+							<company><![CDATA[<?= utf8_encode($author->company) ?>]]></company>
+							<link><![CDATA[<?= utf8_encode($author->link) ?>]]></link>
+						</author>
+					<? } ?>
+				</link>
+			<? } ?>
 		</resource>
 		<? } ?>
 	</resources>	
 <? } else if ($get=='resource') {?>
 	<? if ($id = $_GET['id']) { ?>
 		<? if ($resource = $Resources->get_resource($id)) { ?>
-		<resource id="<?=$id?>"  type="<?=$resource->type?>" image="<?=$resource->image?>">
-			<title><![CDATA[<?=$resource->title?>]]></title>
+		<resource id="<?=$resource->id?>" type="<?=$resource->type?>">
+			<name><![CDATA[<?=$resource->title?>]]></name>
 			<description><![CDATA[<?=$resource->description?>]]></description>
 			<? foreach ($resource->categories as $category) { ?>
-				<category name="<?= $category ?>"/>
+				<category id="<?= $category->id ?>"><?= $category->title ?></category>
 			<? } ?>
 			<? foreach ($resource->links as $link) { ?>
 				<link id="<?= $link->id ?>" date="<?= date("M j, Y", $link->date)?>">

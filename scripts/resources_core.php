@@ -48,7 +48,7 @@ class Resource {
 	
 	function has_category($name) {
 		foreach ($this->categories as $category) {
-			if (strcasecmp($name, $category) == 0) return true;
+			if (strcasecmp($name, $category->name) == 0) return true;
 		}
 		return false;
 	}

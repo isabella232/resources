@@ -15,5 +15,10 @@
 class ResourceCategory {
 	var $id;
 	var $title;
+	
+	function ResourceCategory($id=null, $title=null) {
+		$this->id = $id;
+		$this->title = $title;
+	}
 }
 ?>

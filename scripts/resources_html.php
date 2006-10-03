@@ -57,14 +57,10 @@ class ResourcesHtml {
 				
 				<td width="50%">
 					<div class="invisible" id="<?=$countID;?>">
-						<a name="<?=$countID;?>" class="norgie" onClick="t('<?=$countID;?>','<?=$countID;?>a')"></a>
-						<a onclick="t('<?=$countID;?>', '<?=$countID . 'a';?>')"><?=htmlentities($resource->title);?></a>
-						<? if ($_GET['edit']) {?>
-								<a href="edit_resource.php?id=<?=$resource->id?>">[edit]</a>
-						<?}?>
+						<a onclick="t('<?=$countID;?>', '<?=$countID . 'a';?>')"><?=$resource->title?></a> <a href="resource.php?id=<?=$resource->id?>"><img src="images/more.gif"/></a>
 					</div>
 				</td>
-				<td width="10%" valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
+				<td width="10%" align="center" valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
 				<td width="10%"><?
 				//if ($resource->links[0]->date != 0)
 				echo str_replace(" ", "&nbsp;", date("F Y", $resource->get_date()));
@@ -75,16 +71,7 @@ class ResourcesHtml {
 				<td colspan="6">
 					<div class="invisible" id="<?=$countID . 'a';?>">
 					<div class="item_contents">
-						<table><tbody><tr>
-						<td valign="top"><?=htmlentities($resource->description);?>
-						<p><?=$this->get_resource_categories($resource);?> 
-							<? if ($_GET['edit']) {?>
-								<a href="edit_resource_categories.php?id=<?=$resource->id?>">[edit]</a>
-							<?}?>
-						</p>
-						<?=$this->get_links($resource);?></td>
-						<?=$resource->image ? "<td valign=\"top\"><img align=\"right\" src=\"$resource->image\"/></td>" : ''; ?>
-						</tr></tbody></table>
+						<?= $this->get_resource_summary($resource) ?>
 						
 					</div> 
 					</div>
@@ -103,6 +90,19 @@ class ResourcesHtml {
 		return $html;
 	}
 	
+	function get_resource_summary(& $resource) {
+		$html = '<table border=\"0\"><tbody><tr><td valign="top">';
+		$html .= htmlentities($resource->description);
+		$html .= '<p>';
+		$html .= $this->get_resource_categories($resource);
+		$html .= '</p>';
+		$html .= $this->get_links($resource);
+		$html .= '</td>';
+		$html .= $resource->image ? "<td valign=\"top\"><img align=\"right\" src=\"$resource->image\"/></td>" : ''; 
+		$html .= '</tr></tbody></table>';
+		return $html;
+	}
+	
 	function get_sort_icon($filter, $field) {
 		if ($filter->initially_sorts_on($field)) return '<img src="images/down.png"/>';
 	}
@@ -113,7 +113,7 @@ class ResourcesHtml {
 		$categories = $resource->categories;
 		sort($categories);
 		foreach($categories as $category) {
-			$html .= "$separator<a href=\"?category=$category\">$category</a>";
+			$html .= "$separator<a href=\"/resources?category=$category->title\">$category->title</a>";
 			$separator = ', ';
 		}
 		
@@ -151,7 +151,7 @@ class ResourcesHtml {
 		$html = '';
 		if (count($resource->links) > 0) {
 			foreach ($resource->links as $link) {
-				$html .= "<p style=\"margin-left:3em;text-indent:-2em;\"><a href=\"$link->path\">";
+				$html .= "<p style=\"margin-left:3em;text-indent:-2em;\"><a target=\"_blank\" href=\"$link->path\">";
 		
 				$type = $link->type;
 				if (!$type) $type = $resource->type;

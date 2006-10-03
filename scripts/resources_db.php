@@ -25,9 +25,9 @@ class ResourcesDB {
 	
 	function get_all_resources($filter) {
 		$sql = 'select resource.id as resource_id, resource.type as resource_type, resource.title as resource_title, resource.description as resource_description, resource.image_path as resource_image '.
-			', category.name as category_name' .
+			', category.id as category_id, category.name as category_name' .
 			', link.id as link_id, link.type as link_type, link.title as link_title, link.create_date as link_date, link.language as link_language, link.path as link_path'.
-			', author.id as author_id, author.name as author_name, author.email, author.company, author.link ' .
+			', author.id as author_id, author.name as author_name, author.email as author_email, author.company as author_company, author.link as author_link ' .
 			' from resource LEFT JOIN resource_category ON (resource.id = resource_category.resource_id) LEFT JOIN category ON (category.id = resource_category.category_id) LEFT JOIN link ON (link.resource_id = resource.id) LEFT JOIN link_author ON (link.id = link_author.link_id) LEFT JOIN author ON (link_author.author_id = author.id)'.
 			' where 1=1';
 				
@@ -126,7 +126,7 @@ class ResourcesDB {
 	
 	function get_resource($id) {
 		$sql = 'select resource.id as resource_id, resource.type as resource_type, resource.title as resource_title, resource.description as resource_description, resource.image_path as resource_image '.
-			', category.name as category_name' .
+			', category.id as category_id, category.name as category_name' .
 			', link.id as link_id, link.type as link_type, link.title as link_title, link.create_date as link_date, link.language as link_language, link.path as link_path'.
 			', author.id as author_id, author.name as author_name, author.email, author.company, author.link ' .
 			' from resource LEFT JOIN resource_category ON (resource.id = resource_category.resource_id) LEFT JOIN category ON (category.id = resource_category.category_id) LEFT JOIN link ON (link.resource_id = resource.id) LEFT JOIN link_author ON (link.id = link_author.link_id) LEFT JOIN author ON (link_author.author_id = author.id)'.
@@ -310,11 +310,22 @@ class ResourcesDB {
 		execute_query($sql);
 	}
 	
-	function insert_category($category) {
-		$name = addslashes(trim($category));
-		$result = mysql_query("select id from category where name='$name'");
+	/*
+	 * This function inserts the given instance of Category into the database.
+	 * A check is first done to see if a category already exists in the database
+	 * with the same name. If such a category does exist, the instance's id
+	 * is replaced with the value from the database, and the value of the id
+	 * is returned.
+	 */
+	function insert_category(& $category) {
+		$name = addslashes(trim($category->name));
+		$result = mysql_query("select id from category where id='$name'");
 		$row = mysql_fetch_row($result);
-		if ($row) return $row[0];
+		if ($row) {
+			$id = $row[0];
+			$category->id = $id;
+			return $id;
+		}
 		$sql = "insert into category (name) values ('$name')";
 		$this->execute_query($sql);
 		$id = mysql_insert_id();
@@ -375,12 +386,13 @@ class ResourcesBuilder {
 	}
 	
 	function append_category(&$resource, $row) {			
-		$category = $row['category_name'];
-		if ($category == null) return;
-		if (!in_array($category, $resource->categories)) {
-			//echo "Adding $category<br>";
-			array_push($resource->categories, $category);
+		$category_id = $row['category_id'];	
+		$category_name = $row['category_name'];
+		if ($category_name == null) return;
+		foreach($resource->categories as $category) {
+			if ($category->id == $category_id) return;
 		}
+		array_push($resource->categories, new ResourceCategory($category_id, $category_name));
 	}
 
 	function append_link(&$resource, $row) {			

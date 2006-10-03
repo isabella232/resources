@@ -1,18 +1,20 @@
 <?php
+/*******************************************************************************
+ * Copyright (c) 2006 Eclipse Foundation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
+ *******************************************************************************/
 
-
-#*****************************************************************************
-#
-# Article.php
-#
-# Author: 		Wayne Beaton
-# Date:			2005-11-07
-#
-# Description: This file commits changes made on the edit_resource.php
-# page
-#
-#****************************************************************************
-
+/*
+ * This file contains code that commits changes to categories. 
+ * It was created a stopgap measure to facilitate the tagging of resources
+ * until a proper UI can be created.
+ */
 require_once('resources_mgr.php');
 require_once('categories_core.php');
 

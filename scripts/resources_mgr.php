@@ -1,15 +1,26 @@
 <?php
+/*******************************************************************************
+ * Copyright (c) 2006 Eclipse Foundation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
+ *******************************************************************************/
 
 #*****************************************************************************
 #
-# Article.php
+# resources_mgr.php
 #
 # Author: 		Wayne Beaton
 # Date:			2005-11-07
 #
-# Description: This file defines the Article class which is used to define,
-# and render as html, articles.
-#
+# Description: 
+#    This file defines the ResourcesMgr class along with a singleton instance,
+#    $Resources. This class is used as an entry point into the underlying resources
+#    storage mechanism (it is a Facade).
 #****************************************************************************
 require_once('resources_core.php');
 require_once('resources_db.php');

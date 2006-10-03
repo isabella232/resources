@@ -1,4 +1,15 @@
 <?php
+/*******************************************************************************
+ * Copyright (c) 2006 Eclipse Foundation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
+ *******************************************************************************/
+
 	#*****************************************************************************
 	#
 	# get_resources.rss
@@ -7,7 +18,10 @@
 	# Date:			2006-09-21
 	#
 	# Description:
+	#    This file implements a RESTful web service that provides information
+	#    about resources, authors, and categories.
 	#****************************************************************************
+	
 	header('Content-type: text/xml; charset=utf-8');
 	require_once("scripts/resources_mgr.php");
 	$get = $_GET['get'];

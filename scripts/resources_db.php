@@ -1,5 +1,19 @@
 <?php
-	
+/*******************************************************************************
+ * Copyright (c) 2006 Eclipse Foundation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
+ *******************************************************************************/
+
+/*
+ * This file defines the ResourcesDB class. This class is responsible for
+ * reading and writing information from and to the database.
+ */
 require_once('resources_core.php');
 require_once('categories_core.php');
 require_once('filter_core.php');
@@ -7,6 +21,13 @@ require_once('filter_core.php');
 class ResourcesDB {
 	
 	function ResourcesDB() {
+		/*
+		 * If we're running on the server, the file will be found. If we
+		 * are running locally (i.e. unit test environment), the file will
+		 * not be found. If we're running on the server, use the server's
+		 * DB connection class to build the connection. Otherwise, build it
+		 * the old fashioned way.
+		 */
 		if (file_exists("/home/data/httpd/eclipse-php-classes/system/dbconnection_rw.class.php")) {
 			require_once "/home/data/httpd/eclipse-php-classes/system/dbconnection_rw.class.php";
 			$dbc = new DBConnectionRW();

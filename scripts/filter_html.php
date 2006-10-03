@@ -1,17 +1,20 @@
 <?php
+/*******************************************************************************
+ * Copyright (c) 2006 Eclipse Foundation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
+ *******************************************************************************/
 
-#*****************************************************************************
-#
-# filter_html.php
-#
-# Author: 		Wayne Beaton
-# Date:			2006-07-19
-#
-# Description: This file contains functions that generate the filter form
-# for display on a resources page.
-#
-#****************************************************************************
-
+/*
+ * This file defines the FilterHtml class and a singleton instance, $Filters_HTML.
+ * This class is used to render filter information in HTML format.
+ */
+require_once('resources_mgr.php');
 require_once('filter_core.php');
 
 $Filters_HTML = new FilterHtml();

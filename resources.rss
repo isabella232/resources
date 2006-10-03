@@ -1,4 +1,15 @@
 <?php
+/*******************************************************************************
+ * Copyright (c) 2006 Eclipse Foundation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
+ *******************************************************************************/
+
 	#*****************************************************************************
 	#
 	# articles.rss
@@ -7,10 +18,8 @@
 	# Date:			2006-07-18
 	#
 	# Description: This page generates an RSS feed containing resources. 
-	#   An optional parameter (filter) can be provided in the request header
-	#   to specify what the feed will contain. To obtain only recent articles,
-	#   you would specify "/articles/articles.rss?filter=recent". If no filter
-	#   is specified, the recent articles are returned.
+	#   Optional filter parameters can be provided (see scripts/filter_core.php
+    #   for information) to prune the list.
 	#****************************************************************************
 	header('Content-type: text/xml');
 	

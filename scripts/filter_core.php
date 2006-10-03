@@ -1,17 +1,34 @@
 <?php
+/*******************************************************************************
+ * Copyright (c) 2006 Eclipse Foundation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
+ *******************************************************************************/
 
-
-#*****************************************************************************
-#
-# Article.php
-#
-# Author: 		Wayne Beaton
-# Date:			2006-07-18
-#
-# Description: This file contains the definition of a resources filter class.
-#
-#****************************************************************************
-
+/*
+ * This file defines the Filter class. This class is used to filter
+ * the list of resources to the minimal set desired by the user.
+ * The populate_from_html_request_header() method populates the 
+ * receiver with information from the $_GET variable, including:
+ * - recent, displays only the most recently changed or added
+ *   resources (changed or added in the last six months). By default
+ *   all resources are show unless this parameter is set to any value.
+ * - type, displays only the resources with the given type. This parameter
+ *   can be specified multiple times. Valid values are 'book', 'article',
+ *   'presentation', 'demo', or 'code'.
+ * - category, displays only the resources that are in a category
+ *   with the given name.
+ * - author, displays only the resources that contain a link authored
+ *   by the given author.
+ * - since, displays only the resources that have changed since the
+ *   provided date (any date that can be parsed by strtotime()).
+ * - sortby, determines the order of the resources.
+ */
 class Filter {
 	var $id;
 	var $recent;

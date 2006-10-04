@@ -23,6 +23,7 @@
 #    resource information as HTML.
 #****************************************************************************
 
+require_once("resources_mgr.php");
 require_once("filter_core.php");
 
 $Resources_HTML = new ResourcesHtml();

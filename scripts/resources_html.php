@@ -69,7 +69,7 @@ class ResourcesHtml {
 				
 				<td width="50%">
 					<div class="invisible" id="<?=$countID;?>">
-						<a onclick="t('<?=$countID;?>', '<?=$countID . 'a';?>')"><?=$resource->title?></a> <a href="resource.php?id=<?=$resource->id?>"><img src="images/more.gif"/></a>
+						<a class="expandDown" onclick="t('<?=$countID;?>', '<?=$countID . 'a';?>')"><?=$resource->title?></a> <a href="resource.php?id=<?=$resource->id?>"><img src="images/more.gif"/></a>
 					</div>
 				</td>
 				<td width="10%" align="center" valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>

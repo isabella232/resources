@@ -205,6 +205,10 @@ a.norgie {
 	border-top:1px solid black;
 }
 
+.expandDown {
+	cursor:pointer;
+}
+
 .headerBar span {
 	font-size: 80%;
 	font-weight: normal;

@@ -18,9 +18,8 @@
  * - recent, displays only the most recently changed or added
  *   resources (changed or added in the last six months). By default
  *   all resources are show unless this parameter is set to any value.
- * - type, displays only the resources with the given type. This parameter
- *   can be specified multiple times. Valid values are 'book', 'article',
- *   'presentation', 'demo', or 'code'.
+ * - type, displays only the resources with the given type. Valid values 
+ *    are 'book', 'article', 'presentation', 'demo', or 'code'.
  * - category, displays only the resources that are in a category
  *   with the given name.
  * - author, displays only the resources that contain a link authored
@@ -32,7 +31,7 @@
 class Filter {
 	var $id;
 	var $recent;
-	var $types;
+	var $type;
 	var $category;
 	var $author;
 	var $since;
@@ -44,8 +43,10 @@ class Filter {
 	function populate_from_html_request_header() {
 		$this->id = $_GET['id'];
 		$this->recent = $_GET['recent'];
-		$this->types = $_GET['type'];
-		if ($this->types) if (!is_array($this->types)) $this->types = array($this->types);
+		$this->type = $_GET['type'];
+		if (!in_array($this->type, array('article', 'book', 'presentation', 'demo', 'code'))) {
+			$this->type = null;
+		}
 		$this->category = $_GET['category'];
 		if ($_GET['author']) $this->author = html_entity_decode($_GET['author']);
 		if ($_GET['since']) 
@@ -73,61 +74,20 @@ class Filter {
 		if (count($this->sortby) == 0) return false;
 		return $this->sortby[0] == $field;
 	}
-	
-	function show_type($type) {
-		if (!$this->types) return true;
-		if (count($this->types) == 0) return true;
-		return in_array($type, $this->types);
-	}
-	
+		
 	function show_all() {
 		if ($this->id) return false;
 		if ($this->recent) return false;
-		if ($this->types) return false;
+		if ($this->type) return false;
 		if ($this->category) return false;
 		if ($this->author) return false;
 		return true;
 	}
-	
-	function show_resource($resource) {
-		if ($this->id) {
-			if ($this->id == $resource->id) return true;
-			else return false;
-		}
-		
-		if (!$this->show_type($resource->type)) return false;
-		if (!$this->is_recent($resource)) return false;
-		
-		if ($this->category) {
-			if (!$resource->has_category($this->category)) return false;
-		}
-		
-		if ($this->author) {
-			if (!$resource->has_author($this->author)) return false;
-		}
-		return true;
-	}
-	
-/*	function show_category($category) {
-		if (!$this->has_categories()) return false;
-		return in_array($category->id, $this->categories);
-	}*/
-	
-/*	function has_categories() {		
-		if (!$this->categories) return false;
-		if (count($this->categories) == 0) return false;
-		return true;
-	}*/
-	
+			
 	function show_recent() {
 		return $this->recent;
 	}
-	
-	function is_recent($resource) {
-		if (!$this->recent) return true;
-		return $resource->get_date() > $this->since;
-	}
-	
+		
 	function count($resources) {
 		$count = 0;
 		foreach($resources as $resource) {
@@ -206,18 +166,13 @@ class Filter {
 		$param_separator = '';
 		if ($this->id) return "";
 		
-		if ($this->types) {
+		if ($this->type) {
 			$summary = "Eclipse ";
-			$count = count($this->types);
-			$separator = '';
-			foreach($this->types as $type) {
-				if (!$type) continue;
-				if ($type == 'code') $type = 'code samples';
-				else $type = $type.'s';
-				
-				$summary .= $separator.$type;
-				$separator = --$count == 1 ? ', and ' : ', ';
-			}
+			$type = $this->type;
+			if ($type == 'code') $type = 'code samples';
+			else if ($type == 'demo') $type = 'demonstrations';
+			else $type = $type.'s';
+			$summary .= $type;
 		} else {
 			$summary = "All Eclipse resources";
 		}

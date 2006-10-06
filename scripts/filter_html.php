@@ -21,22 +21,16 @@ $Filters_HTML = new FilterHtml();
 
 class FilterHtml {
 function get_filter_form(& $filter) {	
-	$recent = $filter->show_recent() ? 'checked' : false;
-	$article = $filter->show_type('article') ? 'checked' : false;
-	$presentation = $filter->show_type('presentation') ? 'checked' : false;
-	$book = $filter->show_type('book') ? 'checked' : false;
-	$demo = $filter->show_type('demo') ? 'checked' : false;
-	$code = $filter->show_type('code') ? 'checked' : false;
 	
 	return <<<EOHTML
 			<ul>
 				<li><a href=".">Everything</a></li>
 				<li><a href="?recent=true">Recent additions</a></li>
-				<li><a href="?type[0]=article">Articles</a></li>
-				<li><a href="?type[0]=book">Books</a></li>
-				<li><a href="?type[0]=presentation">Presentations</a></li>
-				<li><a href="?type[0]=demo">Demonstrations</a></li>
-				<li><a href="?type[0]=code">Code Samples</a></li>
+				<li><a href="?type=article">Articles</a></li>
+				<li><a href="?type=book">Books</a></li>
+				<li><a href="?type=presentation">Presentations</a></li>
+				<li><a href="?type=demo">Demonstrations</a></li>
+				<li><a href="?type=code">Code Samples</a></li>
 			</ul>
 EOHTML;
 }

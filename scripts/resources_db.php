@@ -52,16 +52,10 @@ class ResourcesDB {
 			' from resource LEFT JOIN resource_category ON (resource.id = resource_category.resource_id) LEFT JOIN category ON (category.id = resource_category.category_id) LEFT JOIN link ON (link.resource_id = resource.id) LEFT JOIN link_author ON (link.id = link_author.link_id) LEFT JOIN author ON (link_author.author_id = author.id)'.
 			' where 1=1';
 				
-		if (count($filter->types) > 0) {
-			$sql .= " and resource.type in (";
-			$separator = '';
-			foreach($filter->types as $type) {
-				$sql .= "$separator'$type'";
-				$separator=",";
-			}
-			$sql .= ')';
-			
+		if ($filter->type) {
+			$sql .= " and resource.type = '$filter->type'";			
 		}
+		
 		if ($filter->category) {
 			// The following line works with MySQL 4.5+
 			// $sql .= " and (resource.id in (select resource.id from resource join resource_category on (resource.id = resource_category.resource_id) join category on (resource_category.category_id = category.id) where category.name = '$filter->category'))";

@@ -57,7 +57,7 @@ class ResourcesHtml {
 		</tr>
 		</table>
 		<div class="resources">
-		<table class="resourcesTable" cellspacing="0">
+		<table width="100%" class="resourcesTable" cellspacing="0">
 		
 		<?
 		$countID = 0;
@@ -73,14 +73,14 @@ class ResourcesHtml {
 					</div>
 				</td>
 				<td width="10%" align="center" valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
-				<td width="10%"><?
+				<td width="10%" align="right"><?
 				//if ($resource->links[0]->date != 0)
 				echo str_replace(" ", "&nbsp;", date("F Y", $resource->get_date()));
 				?></td>
 				<td width="10%" align="center"><?=$this->get_languages($resource);?></td>
 			</tr>
 			<tr>
-				<td colspan="6">
+				<td colspan="4">
 					<div class="invisible" id="<?=$countID . 'a';?>">
 					<div class="item_contents">
 						<?= $this->get_resource_summary($resource) ?>

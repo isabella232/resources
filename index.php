@@ -90,19 +90,15 @@
 
 	<div id="rightcolumn">
 		<div class="sideitem">
-			<h6>Filter Resources</h6>
+			<h6>Show what?</h6>
 			$filter_form
 		</div>
-	</div>
 
-	<div id="rightcolumn">
 		<div class="sideitem">
 			<h6>Categories</h6>
 			$category_cloud
 		</div>
-	</div>
 
-	<div id="rightcolumn">
 		<div class="sideitem">
 			<h6>Authors</h6>
 			$authors_cloud

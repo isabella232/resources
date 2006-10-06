@@ -29,21 +29,15 @@ function get_filter_form(& $filter) {
 	$code = $filter->show_type('code') ? 'checked' : false;
 	
 	return <<<EOHTML
-			<a href="index.php">Show all</a>
-			<hr/>
-			<form action="index.php" method="GET">				
-				<input type="checkbox" name="recent" value="true" $recent>Recent only</input><br/>
-
-				<hr/>
-				<em>Types</em><br/>
-				<p style=\"line-height:1;margin:0;margin-left:2em;text-indent:-2em;\"><input type="checkbox" name="type[0]" value="article" $article>Articles</input></p>
-				<p style=\"line-height:1;margin:0;margin-left:2em;text-indent:-2em;\"><input type="checkbox" name="type[1]" value="presentation" $presentation>Presentations</input></p>
-				<p style=\"line-height:1;margin:0;margin-left:2em;text-indent:-2em;\"><input type="checkbox" name="type[2]" value="book" $book>Books</input></p>
-				<p style=\"line-height:1;margin:0;margin-left:2em;text-indent:-2em;\"><input type="checkbox" name="type[3]" value="demo" $demo>Demonstrations</input></p>
-				<p style=\"line-height:1;margin:0;margin-left:2em;text-indent:-2em;\"><input type="checkbox" name="type[4]" value="code" $code>Code samples</input></p>
-
-				<p align="center"><INPUT TYPE="reset"/>&nbsp;<INPUT TYPE="submit" VALUE="Submit"/></p>
-			</form>
+			<ul>
+				<li><a href=".">Everything</a></li>
+				<li><a href="?recent=true">Recent additions</a></li>
+				<li><a href="?type[0]=article">Articles</a></li>
+				<li><a href="?type[0]=book">Books</a></li>
+				<li><a href="?type[0]=presentation">Presentations</a></li>
+				<li><a href="?type[0]=demo">Demonstrations</a></li>
+				<li><a href="?type[0]=code">Code Samples</a></li>
+			</ul>
 EOHTML;
 }
 

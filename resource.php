@@ -50,7 +50,7 @@
 		exit;
 	}
 	
-	$pageTitle = "Eclipse Resource: $resource->title";
+	$pageTitle = "$resource->title";
 	$summary = $Resources_HTML->get_resource_summary($resource);
 	
 	# Paste your HTML content between the EOHTML markers!	

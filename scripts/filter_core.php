@@ -63,6 +63,7 @@ class Filter {
 			$field = trim($field);
 			if (strlen($field) > 0) array_push($sortby, $field);
 		}
+		if (count($sortby)==0) array_push($sortby, 'date');
 		return $sortby;
 	}
 	

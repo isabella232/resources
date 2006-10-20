@@ -24,10 +24,9 @@
 	
 	header('Content-type: text/xml; charset=utf-8');
 	require_once("scripts/resources_mgr.php");
-	$get = $_GET['get'];
-?><? echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"; ?>
-<? if ($get=='categories') { ?>
-	<? $categories = $Resources->get_categories();?>
+?><? echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"; ?>
+<eclipse-resources>
+<? $categories = $Resources->get_categories();?>
 	<categories>
 		<? foreach($categories as $category) { ?>
 		<category id="<?=$category->id?>">
@@ -35,77 +34,36 @@
 		</category>
 		<? } ?>
 	</categories>
-<? } else if ($get=='resources') {?>
-	<? $resources = $Resources->get_resources();?>
+<? $authors = $Resources->get_authors();?>
+	<authors>
+		<? foreach($authors as $author) { ?>
+		<author id="<?=$author->id?>">
+			<name><![CDATA[<?= utf8_encode($author->name) ?>]]></name>
+			<email><![CDATA[<?= utf8_encode($author->email) ?>]]></email>
+			<company><![CDATA[<?= utf8_encode($author->company) ?>]]></company>
+			<link><![CDATA[<?= utf8_encode($author->link) ?>]]></link>
+		</author>
+		<? } ?>
+	</authors>	
+<? $resources = $Resources->get_resources();?>
 	<resources>
 		<? foreach($resources as $resource) { ?>
 		<resource id="<?=$resource->id?>" type="<?=$resource->type?>">
 			<name><![CDATA[<?= utf8_encode($resource->title) ?>]]></name>
 			<description><![CDATA[<?= utf8_encode($resource->description)?>]]></description>
 			<? foreach ($resource->categories as $category) { ?>
-				<category id="<?= $category->id ?>"><?= utf8_encode($category->title) ?></category>
+				<category id="<?= $category->id ?>"/>
 			<? } ?>
 			<? foreach ($resource->links as $link) { ?>
 				<link id="<?= $link->id ?>" date="<?= date("M j, Y", $link->date)?>" language="<?=$link->language?>">
 					<title><![CDATA[<?= $link->title ?>]]></title>
 					<path><![CDATA[<?= $link->path ?>]]></path>
 					<? foreach ($link->authors as $author) { ?>
-						<author id="<?=$author->id?>">
-							<name><![CDATA[<?= utf8_encode($author->name) ?>]]></name>
-							<email><![CDATA[<?= utf8_encode($author->email) ?>]]></email>
-							<company><![CDATA[<?= utf8_encode($author->company) ?>]]></company>
-							<link><![CDATA[<?= utf8_encode($author->link) ?>]]></link>
-						</author>
+						<author id="<?=$author->id?>"/>
 					<? } ?>
 				</link>
 			<? } ?>
 		</resource>
 		<? } ?>
 	</resources>	
-<? } else if ($get=='resource') {?>
-	<? if ($id = $_GET['id']) { ?>
-		<? if ($resource = $Resources->get_resource($id)) { ?>
-		<resource id="<?=$resource->id?>" type="<?=$resource->type?>">
-			<name><![CDATA[<?=$resource->title?>]]></name>
-			<description><![CDATA[<?=$resource->description?>]]></description>
-			<? foreach ($resource->categories as $category) { ?>
-				<category id="<?= $category->id ?>"><?= $category->title ?></category>
-			<? } ?>
-			<? foreach ($resource->links as $link) { ?>
-				<link id="<?= $link->id ?>" date="<?= date("M j, Y", $link->date)?>">
-					<title><![CDATA[<?= $link->title ?>]]></title>
-					<path><![CDATA[<?= $link->path ?>]]></path>
-					<? foreach ($link->authors as $author) { ?>
-						<author id="<?=$author->id?>">
-							<name><![CDATA[<?= $author->name ?>]]></name>
-							<email><![CDATA[<?= $author->email ?>]]></email>
-							<company><![CDATA[<?= $author->company ?>]]></company>
-							<link><![CDATA[<?= $author->link ?>]]></link>
-						</author>
-					<? } ?>
-				</link>
-			<? } ?>
-		</resource>
-		<? } else { ?>
-			<error message="No resource with id=<?=$id?> found."/>
-		<? } ?>
-	<? } else { ?>
-		<error message="You must specify an id for the resource to get."/>
-	<? } ?>	
-<? } else if ($get=='authors') {?>
-	<? $authors = $Resources->get_authors();?>
-	<resources>
-		<? foreach($authors as $author) { ?>
-		<author id="<?=$author->id?>">
-			<name><![CDATA[<?= $author->name ?>]]></name>
-			<email><![CDATA[<?= $author->email ?>]]></email>
-			<company><![CDATA[<?= $author->company ?>]]></company>
-			<link><![CDATA[<?= $author->link ?>]]></link>
-		</author>
-		<? } ?>
-	</resources>	
-
-<? } else { ?>
-<error message="Please specify what you want to get (categories, authors, resources, resource)."/>
-<? } ?>
-
+</eclipse-resources>

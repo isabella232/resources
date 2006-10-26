@@ -41,20 +41,19 @@
 	$host = $_SERVER['HTTP_HOST'];
 	$resources_root = "http://$host/resources";
 	
-	echo <<<EORSS
+?>
 <rss version="2.0">
   <channel>
     <title>Eclipse Resources</title>
-    <description>$filter_summary</description>
-    <link><![CDATA[$resources_root$filter_string]]></link>
+    <description><?= $filter_summary ?></description>
+    <link><![CDATA[<?=$resources_root?><?=$filter_string ?>]]></link>
     <image>
-      <url>$resources_root/images/eclipse.png</url>
+      <url><?= $resources_root ?>/images/eclipse.png</url>
       <title>eclipse.org</title>
-      <link>$resources_root</link>
+      <link><?=$resources_root?></link>
     </image>
-EORSS;
+<?php
 	foreach ($resources as $resource) {
-		if (!$filter->show_resource($resource)) continue;
 		echo "\n\t<item>";
 		echo "\n\t\t<title><![CDATA[$resource->title]]></title>";
 		echo "\n\t\t<link>$resources_root/resource.php?id=$resource->id</link>";
@@ -63,9 +62,6 @@ EORSS;
 		echo "\n\t\t<pubDate>$date</pubDate>";
 		echo "\n\t</item>";
 	}
-	
-	echo <<<EORSS
+?>
 	</channel>
 </rss>
-EORSS;
-?>

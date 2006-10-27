@@ -12,7 +12,7 @@
 
 	#*****************************************************************************
 	#
-	# template.php
+	# index.php
 	#
 	# Author: 		Wayne Beaton
 	# Date:			February 16, 2006
@@ -45,10 +45,8 @@
 	
 	$filter = new Filter();	
 	$filter->populate_from_html_request_header();
-	$filter_string = $filter->get_url_parameters();
 	$sort = $_GET['sort'];
 	
-	//$resources_source = new ResourcesXML();
 	$resources_list = $Resources->get_resources($filter);
 	$count = count($resources_list);
 	

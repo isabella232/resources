@@ -105,40 +105,10 @@ class Filter {
 		return $count;
 	}
 	
-	function get_url_parameters($sort_field = null, $category=null, $author=null) {
+	function get_url_parameters($sort_field) {
 		$filter = '';
 		$param_separator = '';
-		if ($this->id) return "id=$this->id";
-		
-		if ($this->show_recent()) {
-			$filter .= $param_separator."recent=true";
-			$param_separator = '&';
-		}
-		
-		if ($this->type) {
-			$filter .= $param_separator."type=$this->type";
-			$param_separator = '&';
-		}
-		
-		if ($category) {
-			$filter .= $param_separator."category=$category";
-			$param_separator = '&';
-		} else if ($this->category) {
-			if (!$author) { // only if the author is not explicitly specified.
-				$filter .= $param_separator."category=$this->category";
-				$param_separator = '&';
-			}
-		}
-			
-		if ($author) {
-			$filter .= $param_separator."author=$author";
-			$param_separator = '&';
-		} else if ($this->author) {
-			if (!$category) { // only if the category is not explicitly specified.
-				$filter .= $param_separator."author=$this->author";
-				$param_separator = '&';
-			}
-		}
+
 		/*
 		 * Determine the list of fields to sort on an
 		 * in what order. The list does not contain

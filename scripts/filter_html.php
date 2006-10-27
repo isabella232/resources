@@ -58,8 +58,7 @@ function get_category_cloud(& $filter) {
 		$green = 0; 
 		$blue = 255 - round($count / $max * 255);
 		
-		$link = $filter->get_url_parameters(null, $category);
-		$html .= "$separator<font size=\"$size\"><a style=\"color: rgb($red,$green,$blue)\" href=\"?$link\">$category</a></font>";
+		$html .= "$separator<font size=\"$size\"><a style=\"color: rgb($red,$green,$blue)\" href=\"?category=$category\">$category</a></font>";
 		$separator = ', ';
 	}
 		
@@ -96,9 +95,8 @@ function get_author_cloud(& $filter) {
 		$green = 0; 
 		$blue = 255 - round($count / $max * 255);
 		
-		$link = $filter->get_url_parameters(null, null, $author_name);
 	//	if ($background) $html .= "<span style=\"background: #fefacc\">";
-		$html .= "$separator<font size=\"$size\"><a style=\"color: rgb($red,$green,$blue)\" href=\"?$link\">$author_name</a></font>";
+		$html .= "$separator<font size=\"$size\"><a style=\"color: rgb($red,$green,$blue)\" href=\"?author=$author_name\">$author_name</a></font>";
 		//if ($background) $html .= "</span>";
 		$separator = ', ';
 	}

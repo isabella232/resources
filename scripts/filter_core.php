@@ -9,6 +9,11 @@
  * Contributors:
  *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
  *******************************************************************************/
+function getHTTPParameter($name) {
+	if(array_key_exists($name, $_GET))
+		return $_GET[$name];
+	return null;
+}
 
 /*
  * This file defines the Filter class. This class is used to filter
@@ -19,7 +24,7 @@
  *   resources (changed or added in the last six months). By default
  *   all resources are show unless this parameter is set to any value.
  * - type, displays only the resources with the given type. Valid values 
- *    are 'book', 'article', 'presentation', 'demo', or 'code'.
+ *    are 'book', 'article', 'publication', 'presentation', 'demo', or 'code'.
  * - category, displays only the resources that are in a category
  *   with the given name.
  * - author, displays only the resources that contain a link authored
@@ -27,6 +32,9 @@
  * - since, displays only the resources that have changed since the
  *   provided date (any date that can be parsed by strtotime()).
  * - sortby, determines the order of the resources.
+ * 
+ * The 'article' type refers to an Eclipse Corner Article; 'publication'
+ * refers to articles found in other places.
  */
 class Filter {
 	var $id;
@@ -41,19 +49,19 @@ class Filter {
 	}
 	
 	function populate_from_html_request_header() {
-		$this->id = $_GET['id'];
-		$this->recent = $_GET['recent'];
-		$this->type = $_GET['type'];
-		if (!in_array($this->type, array('article', 'book', 'presentation', 'demo', 'code'))) {
+		$this->id = getHTTPParameter('id');
+		$this->recent = getHTTPParameter('recent');
+		$this->type = getHTTPParameter('type');
+		if (!in_array($this->type, array('article', 'publication', 'book', 'presentation', 'demo', 'code'))) {
 			$this->type = null;
 		}
-		$this->category = $_GET['category'];
-		if ($_GET['author']) $this->author = html_entity_decode($_GET['author']);
-		if ($_GET['since']) 
-			$this->since = strtotime($_GET['since']);
+		$this->category = getHTTPParameter('category');
+		if (getHTTPParameter('author')) $this->author = html_entity_decode(getHTTPParameter('author'));
+		if (getHTTPParameter('since')) 
+			$this->since = strtotime(getHTTPParameter('since'));
 		else
 			$this->since = strtotime("-6 months");
-		$this->sortby = $this->get_sort_fields($_GET['sort']);
+		$this->sortby = $this->get_sort_fields(getHTTPParameter('sort'));
 	}
 	
 	function get_sort_fields($fields) {
@@ -107,12 +115,9 @@ class Filter {
 			$param_separator = '&';
 		}
 		
-		if ($this->types) {
-			foreach($this->types as $type) {
-				if (!$type) continue;
-				$filter .= $param_separator."type[$count]=$type";
-				$param_separator = '&';
-			}
+		if ($this->type) {
+			$filter .= $param_separator."type=$this->type";
+			$param_separator = '&';
 		}
 		
 		if ($category) {

@@ -26,7 +26,8 @@ function get_filter_form(& $filter) {
 			<ul>
 				<li><a href=".">Everything</a></li>
 				<li><a href="?recent=true">Recent additions</a></li>
-				<li><a href="?type=article">Articles</a></li>
+				<li><a href="?type=article">Eclipse Corner Articles</a></li>
+				<li><a href="?type=publication">Other Articles</a></li>
 				<li><a href="?type=book">Books</a></li>
 				<li><a href="?type=presentation">Presentations</a></li>
 				<li><a href="?type=demo">Demonstrations</a></li>

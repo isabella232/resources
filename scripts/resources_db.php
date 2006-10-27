@@ -368,7 +368,7 @@ class ResourcesDB {
 class ResourcesBuilder {
 	var $resources = array();
 
-	function &build_resources($result) {
+	function &build_resources(&$result) {
 		while (($row = mysql_fetch_assoc($result)) != null) {
 			$resource = &$this->find_or_build_resource($row);
 			$this->append_category($resource, $row);
@@ -377,7 +377,7 @@ class ResourcesBuilder {
 		return $resources;
 	}
 	
-	function &find_or_build_resource($row) {
+	function &find_or_build_resource(&$row) {
 		$key = $row['resource_id'];
 		$resource = &$this->resources[$key];
 		//if ($resource) echo "Found $resource->title<br>";
@@ -389,7 +389,7 @@ class ResourcesBuilder {
 		return $resource;
 	}
 	
-	function &build_resource($row) {
+	function &build_resource(&$row) {
 		$resource = new Resource();
 		$resource->id = $row['resource_id'];
 		$resource->type = $row['resource_type'];
@@ -410,7 +410,7 @@ class ResourcesBuilder {
 		array_push($resource->categories, new ResourceCategory($category_id, $category_name));
 	}
 
-	function append_link(&$resource, $row) {			
+	function append_link(&$resource, &$row) {			
 		$link_id = $row['link_id'];
 		if ($link_id == null) return;
 		$link = &$resource->links[$link_id];
@@ -418,10 +418,10 @@ class ResourcesBuilder {
 			$link = &$this->build_link($row);
 			$resource->links[$link_id] = &$link;
 		}
-		$this->append_author(&$link, $row);
+		$this->append_author($link, $row);
 	}
 	
-	function &build_link($row) {
+	function &build_link(&$row) {
 		$link = new ResourceLink();
 		$link->id = $row['link_id'];
 		$link->language = $row['link_language'];
@@ -443,7 +443,7 @@ class ResourcesBuilder {
 		}
 	}
 	
-	function &build_author($row) {
+	function &build_author(&$row) {
 		$author = new Author();
 		$author->id = $row['author_id'];
 		$author->name = $row['author_name'];

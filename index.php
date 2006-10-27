@@ -45,7 +45,7 @@
 	
 	$filter = new Filter();	
 	$filter->populate_from_html_request_header();
-	$sort = $_GET['sort'];
+	//$sort = $_GET['sort'];
 	
 	$resources_list = $Resources->get_resources($filter);
 	$count = count($resources_list);

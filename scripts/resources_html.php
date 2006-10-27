@@ -30,7 +30,7 @@ $Resources_HTML = new ResourcesHtml();
 
 class ResourcesHtml {
 	
-	function get_pillar_resources_table($pillar, $color=null) {
+	function get_pillar_resources_table(&$pillar, &$color=null) {
 		$filter = new Filter();
 		$filter->category = $pillar;
 		$filter->sortby = array('date');
@@ -38,11 +38,11 @@ class ResourcesHtml {
 		return $this->get_resources_table($this->get_resources($filter), $filter, $color);
 	}
 	
-	function get_resources($filter) {
+	function get_resources(&$filter) {
 		return $GLOBALS['Resources'] -> get_resources($filter);
 	}
 	
-	function get_resources_table($resources, $filter) {
+	function get_resources_table(&$resources, &$filter) {
 		ob_start();
 		?>
 		<table class="resourcesTableHeader" cellspacing="0" width="100%">
@@ -115,11 +115,11 @@ class ResourcesHtml {
 		return $html;
 	}
 	
-	function get_sort_icon($filter, $field) {
+	function get_sort_icon(&$filter, $field) {
 		if ($filter->initially_sorts_on($field)) return '<img src="images/down.png"/>';
 	}
 	
-	function get_resource_categories($resource) {
+	function get_resource_categories(&$resource) {
 		$html = '<i>Categories:</i> ';
 		$separator = '';
 		$categories = $resource->categories;
@@ -138,7 +138,7 @@ class ResourcesHtml {
 	 * is a bunch of image tags pointing to flags for the
 	 * country that best corresponds to the language.
 	 */
-	function get_languages($resource) {
+	function get_languages(&$resource) {
 		$html = '';
 		$separator = '';
 		$languages = array();
@@ -159,7 +159,7 @@ class ResourcesHtml {
 		return $html;
 	}
 	
-	function get_links($resource) {
+	function get_links(&$resource) {
 		$html = '';
 		if (count($resource->links) > 0) {
 			foreach ($resource->links as $link) {
@@ -183,7 +183,7 @@ class ResourcesHtml {
 			
 				if ($link->authors) {
 					$html .= '<br/>';
-					Author::authors_to_html($link->authors, & $html);
+					Author::authors_to_html($link->authors, $html);
 				}
 					
 				$html .= '</p>';

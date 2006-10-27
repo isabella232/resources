@@ -30,7 +30,7 @@ $Resources_HTML = new ResourcesHtml();
 
 class ResourcesHtml {
 	
-	function get_pillar_resources_table(&$pillar, &$color=null) {
+	function get_pillar_resources_table(&$pillar, $color=null) {
 		$filter = new Filter();
 		$filter->category = $pillar;
 		$filter->sortby = array('date');

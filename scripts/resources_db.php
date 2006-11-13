@@ -40,7 +40,7 @@ class ResourcesDB {
 				return;
 			}
 			
-			mysql_select_db("resources", $dbc);
+			mysql_select_db("local_eclipse", $dbc);
 		}
 	}
 	

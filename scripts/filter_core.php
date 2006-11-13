@@ -105,7 +105,7 @@ class Filter {
 		return $count;
 	}
 	
-	function get_url_parameters($sort_field) {
+	function get_url_parameters($sort_field = null) {
 		$filter = '';
 		$param_separator = '';
 

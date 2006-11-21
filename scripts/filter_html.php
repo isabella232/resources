@@ -50,7 +50,7 @@ function get_category_cloud(& $filter) {
 	$separator = '';
 	foreach($category_names as $category) {
 		$count = $categories[$category];
-		if ($count == 0) continue;
+		if ($count < 2) continue;
 		$size = round($count / $max * 4);
 		
 		// Determine a colour for the link.
@@ -82,7 +82,7 @@ function get_author_cloud(& $filter) {
 	foreach($author_names as $author_name) {
 		$count = $authors[$author_name];
 		
-		if ($count == 0) continue;
+		if ($count < 2) continue;
 		$author_name = htmlentities($author_name);
 		if (!$author_name) continue;
 		

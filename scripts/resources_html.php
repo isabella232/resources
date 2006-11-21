@@ -62,8 +62,7 @@ class ResourcesHtml {
 		<?
 		$countID = 0;
 		foreach($resources as $resource) {
-			//if (!$filter->show_resource($resource)) continue;
-			$date = date("M d, Y", $resource->date);
+			$date = date("M d, Y", $resource->get_date()); // . "<br/><font size=-2>".$this->get_time_passed_string($resource->get_date())."</font>";
 			?>
 			<tr class="resourcesData">
 				
@@ -73,10 +72,7 @@ class ResourcesHtml {
 					</div>
 				</td>
 				<td width="10%" align="center" valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
-				<td width="10%" align="right"><?
-				//if ($resource->links[0]->date != 0)
-				echo str_replace(" ", "&nbsp;", date("F Y", $resource->get_date()));
-				?></td>
+				<td width="10%" align="right"><?= $date ?></td>
 				<td width="10%" align="center"><?=$this->get_languages($resource);?></td>
 			</tr>
 			<tr>
@@ -222,7 +218,28 @@ class ResourcesHtml {
 		if ($stringDate == 1){
 		$now -= 3600; }
 		$difference = $now - $date; 
+			
 		switch ($difference) {
+			case $difference > 31536000: // 60*60*24*365
+				$ago = floor($difference / 31536000);
+				if ($ago == 1)
+				{
+					return "+$ago&nbsp;year&nbsp;ago";						
+				}
+				else 
+				{
+					return "+$ago&nbsp;years&nbsp;ago";
+				}
+			case $difference > 2419200: // 60*60*24*7*4
+				$ago = floor($difference / 2419200);
+				if ($ago == 1)
+				{
+					return "+$ago&nbsp;month&nbsp;ago";						
+				}
+				else 
+				{
+					return "+$ago&nbsp;months&nbsp;ago";
+				}
 			case $difference > 604800:
 				$ago = floor($difference / 604800);
 				if ($ago ==1)

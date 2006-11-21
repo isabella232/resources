@@ -191,5 +191,79 @@ class ResourcesHtml {
 		}
 		return $html;
 	}
+	
+	function get_recent_resources_summary($maximum) {
+		$result = mysql_query("select resource.id, resource.title, max(link.create_date) as link_date from resource, link where resource.id = link.resource_id group by resource.id order by link_date desc");
+		if ($error = mysql_error()) {
+			return $error;
+			return null;
+		}
+		
+		$html = '<ul>';
+		
+		while ($row = mysql_fetch_array($result)) {
+			$id = $row[0];
+			$title = $row[1];
+			$date = $row[2];
+			$date = strtotime($date);
+			$ago = $this->get_time_passed_string($date);
+			$html .= "<li><a href=\"/resources/resource.php?id=$id\">$title</a> <span class=\"posted\">$ago</span></li>";
+			
+			if (--$maximum == 0) break;
+		}
+		
+		$html .= '</ul>';
+		return $html;
+	}
+	
+	function get_time_passed_string($date) {
+		$now = strtotime("now");
+		$stringDate = date("I", $now);
+		if ($stringDate == 1){
+		$now -= 3600; }
+		$difference = $now - $date; 
+		switch ($difference) {
+			case $difference > 604800:
+				$ago = floor($difference / 604800);
+				if ($ago ==1)
+				{
+					return "+$ago&nbsp;week&nbsp;ago";						
+				}
+				else 
+				{
+					return "+$ago&nbsp;weeks&nbsp;ago";
+				}
+			case $difference > 86400:
+				$ago = floor($difference / 84600);
+				if ($ago == 1)
+				{
+					return "+$ago&nbsp;day&nbsp;ago";						
+				}
+				else
+				{
+					return "+$ago&nbsp;days&nbsp;ago";						
+				}
+			case $difference > 3600;
+				$ago = floor($difference / 3600);
+				if ($ago == 1)
+				{
+					return "+$ago&nbsp;hour&nbsp;ago";						
+				}
+				else
+				{
+					return "+$ago&nbsp;hours&nbsp;ago";						
+				}
+			case $difference > 0:
+				$ago = floor($difference / 60);
+				if ($ago == 1)
+				{
+					return "+$ago&nbsp;minute&nbsp;ago";						
+				}
+				else
+				{
+					return "+$ago&nbsp;minutes&nbsp;ago";						
+				}
+		}
+	}
 }
 ?>

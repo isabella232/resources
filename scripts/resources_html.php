@@ -110,7 +110,7 @@ class ResourcesHtml {
 		$html .= '</p>';
 		$html .= $this->get_links($resource);
 		$html .= '</td>';
-		$html .= $resource->image ? "<td valign=\"top\"><img align=\"right\" src=\"$resource->image\"/></td>" : ''; 
+		$html .= $resource->image ? "<td valign=\"top\"><img width=\"100px\" align=\"right\" src=\"$resource->image\"/></td>" : ''; 
 		$html .= '</tr></tbody></table>';
 		return $html;
 	}

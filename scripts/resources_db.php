@@ -61,7 +61,8 @@ class ResourcesDB {
 			// $sql .= " and (resource.id in (select resource.id from resource join resource_category on (resource.id = resource_category.resource_id) join category on (resource_category.category_id = category.id) where category.name = '$filter->category'))";
 			
 			$resource_ids = $this->get_resource_ids_for_category($filter->category);
-			$sql .= " and (resource.id in $resource_ids)";
+			if ($resource_ids) 
+				$sql .= " and (resource.id in ($resource_ids))";
 		}
 		
 		if ($filter->author) {
@@ -70,7 +71,8 @@ class ResourcesDB {
 			// $sql .= " and (resource.id in (select resource.id from resource join link on (link.resource_id = resource.id) join link_author on (link.id = link_author.link_id) join author on (link_author.author_id = author.id) where author.name = '$author'))";
 			
 			$resource_ids = $this->get_resource_ids_for_author($author);
-			$sql .= " and (resource.id in $resource_ids)";
+			if ($resource_ids)
+				$sql .= " and (resource.id in ($resource_ids))";
 			
 		}
 	
@@ -93,6 +95,7 @@ class ResourcesDB {
 				
 		$result = mysql_query($sql);
 		if (!$result) {
+			echo $sql;
 			echo mysql_error();
 			return null;
 		}
@@ -111,13 +114,13 @@ class ResourcesDB {
 	function get_resource_ids_for_author($author) {
 		$sql = "select resource.id from resource join link on (link.resource_id = resource.id) join link_author on (link.id = link_author.link_id) join author on (link_author.author_id = author.id) where author.name = '$author'";
 		$result = mysql_query($sql);
-		$clause = '(';
+		$clause = '';
 		$separator = '';
 		while (($row = mysql_fetch_row($result)) != null) {
+			//if (!$row[0]) continue;
 			$clause.=$separator.$row[0];
 			$separator =', ';
 		}
-		$clause .= ')';
 		return $clause;
 	}
 	
@@ -129,13 +132,12 @@ class ResourcesDB {
 	function get_resource_ids_for_category($category) {
 		$sql = "select resource.id from resource join resource_category on (resource.id = resource_category.resource_id) join category on (resource_category.category_id = category.id) where category.name = '$category'";
 		$result = mysql_query($sql);
-		$clause = '(';
+		$clause = '';
 		$separator = '';
 		while (($row = mysql_fetch_row($result)) != null) {
 			$clause.=$separator.$row[0];
 			$separator =', ';
 		}
-		$clause .= ')';
 		return $clause;
 	}
 	

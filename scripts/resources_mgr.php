@@ -52,8 +52,8 @@ class ResourcesMgr {
 		return $this->source->get_authors();
 	}
 	
-	function get_categories_with_resource_count() {
-		return $this->source->get_categories_with_resource_count();
+	function get_categories_with_resource_count($type=null) {
+		return $this->source->get_categories_with_resource_count($type);
 	}
 	
 	function get_categories() {

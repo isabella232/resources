@@ -36,9 +36,15 @@ function get_filter_form(& $filter) {
 EOHTML;
 }
 
-function get_category_cloud(& $filter) {
+function get_category_cloud($filter = null, $type = null, $minimum = 2) {
+	if ($filter == null) {
+		$filter = new Filter();
+	} else {
+		$filter = clone($filter);
+	}
+
 	global $Resources;
-	$categories = $Resources->get_categories_with_resource_count();
+	$categories = $Resources->get_categories_with_resource_count($type);
 	
 	$category_names = array_keys($categories);
 	
@@ -50,7 +56,7 @@ function get_category_cloud(& $filter) {
 	$separator = '';
 	foreach($category_names as $category) {
 		$count = $categories[$category];
-		if ($count < 2) continue;
+		if ($count < $minimum) continue;
 		$size = round($count / $max * 4);
 		
 		// Determine a colour for the link.
@@ -58,7 +64,9 @@ function get_category_cloud(& $filter) {
 		$green = 0; 
 		$blue = 255 - round($count / $max * 255);
 		
-		$html .= "$separator<font size=\"$size\"><a style=\"color: rgb($red,$green,$blue)\" href=\"?category=$category\">$category</a></font>";
+		$filter->category = $category;
+		$href = $filter->get_url_parameters();
+		$html .= "$separator<font size=\"$size\"><a style=\"color: rgb($red,$green,$blue)\" href=\"?$href\">$category</a></font>";
 		$separator = ', ';
 	}
 		

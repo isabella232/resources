@@ -35,19 +35,19 @@ class ResourcesHtml {
 		$filter->category = $pillar;
 		$filter->sortby = array('date');
 		
-		return $this->get_resources_table($this->get_resources($filter), $filter, $color);
+		return $this->get_resources_table($this->get_resources($filter), $filter);
 	}
-	
+		
 	function get_resources(&$filter) {
 		return $GLOBALS['Resources'] -> get_resources($filter);
 	}
 	
-	function get_resources_table(&$resources, &$filter) {
+	function get_resources_table(&$resources, &$filter, $label="Technical Resources") {
 		ob_start();
 		?>
 		<table class="resourcesTableHeader" cellspacing="0" width="100%">
 		<tr>
-			<td colspan=4 class="tableHeaderTitle">Technical Resources</td>
+			<td colspan=4 class="tableHeaderTitle"><?= $label ?></td>
 		</tr>
 		<tr>
 			<td width="50%" class="resourcesHeader" style="border-left:1px solid black;" <a href="?<?=$filter->get_url_parameters('title')?>">Title<?=$this->get_sort_icon($filter, 'title')?></a></td>
@@ -68,7 +68,7 @@ class ResourcesHtml {
 				
 				<td width="50%">
 					<div class="invisible" id="<?=$countID;?>">
-						<a class="expandDown" onclick="t('<?=$countID;?>', '<?=$countID . 'a';?>')"><?=$resource->title?></a> <a href="resource.php?id=<?=$resource->id?>"><img src="images/more.gif"/></a>
+						<a class="expandDown" onclick="t('<?=$countID;?>', '<?=$countID . 'a';?>')"><?=$resource->title?></a> <a href="/resources/resource.php?id=<?=$resource->id?>"><img src="/resources/images/more.gif"/></a>
 					</div>
 				</td>
 				<td width="10%" align="center" valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
@@ -164,7 +164,7 @@ class ResourcesHtml {
 				$type = $link->type;
 				if (!$type) $type = $resource->type;
 				if ($type) {
-					$html .= "<img style=\"vertical-align:text-top;\" alt=\"[$type]\" src=\"images/$type.png\"/> ";
+					$html .= "<img style=\"vertical-align:text-top;\" alt=\"[$type]\" src=\"/resources/images/$type.png\"/> ";
 				}
 					
 				if ($link->title) $html .= $link->title;

@@ -266,11 +266,14 @@ class ResourcesDB {
 		return $authors;
 	}
 	
-	function & get_categories_with_resource_count() {
+	function & get_categories_with_resource_count($type=null) {
 		$sql = "select category.name, count(resource.id) " .
 			"from category, resource_category, resource " .
-			"where category.id = resource_category.category_id and resource_category.resource_id = resource.id " .
-		 	"group by category.name order by upper(category.name)";
+			"where category.id = resource_category.category_id and resource_category.resource_id = resource.id";
+			
+		if ($type) $sql .= " and resource.type = '$type'";
+		
+		$sql .= " group by category.name order by upper(category.name)";
 		
 		$result = mysql_query($sql);
 		$categories = array();

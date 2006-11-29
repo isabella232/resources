@@ -134,6 +134,11 @@ class Filter {
 			}
 		}
 		
+		if ($this->category) {
+			$filter .= $param_separator."category=$this->category";
+			$param_separator = '&';
+		}
+		
 		return $filter;
 	}
 	
@@ -164,9 +169,7 @@ class Filter {
 		if ($this->category) {
 			$summary .= " that cover \"$this->category\"";
 		} 
-		
-		$summary .= '.';
-		
+				
 		return $summary;
 	}
 }

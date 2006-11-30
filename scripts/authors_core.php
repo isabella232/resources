@@ -64,7 +64,6 @@ class Author {
 		$separator = 'by ';
 		
 		foreach ($authors as $author) {
-			if (strlen(trim($author)) == 0) $author = "bal";
 			$html .= $separator;
 			if (--$count == 1) $separator = ($more_than_two ? ',' : '') .' and ';
 			else $separator = ', ';

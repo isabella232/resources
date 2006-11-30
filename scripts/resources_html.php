@@ -172,7 +172,7 @@ class ResourcesHtml {
 		
 				$html .= '</a>';
 			
-				$html .= " <img src=\"images/$link->language.gif\"/>";
+				$html .= " <img src=\"/resources/images/$link->language.gif\"/>";
 		
 				$html .= "<br/>";
 				$html .= date("F Y", $link->get_date());

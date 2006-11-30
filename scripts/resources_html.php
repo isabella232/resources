@@ -112,7 +112,7 @@ class ResourcesHtml {
 	}
 	
 	function get_sort_icon(&$filter, $field) {
-		if ($filter->initially_sorts_on($field)) return '<img src="images/down.png"/>';
+		if ($filter->initially_sorts_on($field)) return '<img src="/resources/images/down.png"/>';
 	}
 	
 	function get_resource_categories(&$resource) {

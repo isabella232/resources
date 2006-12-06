@@ -262,7 +262,7 @@ class ResourcesDB {
 			$author->name = $row[1];
 			$author->email = $row[2];
 			$author->company = $row[3];
-			$author->company = $row[4];
+			$author->link = $row[4];
 			array_push($authors, $author);
 		}
 		return $authors;

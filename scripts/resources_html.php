@@ -35,7 +35,7 @@ class ResourcesHtml {
 		$filter->category = $pillar;
 		$filter->sortby = array('date');
 		
-		return $this->get_resources_table($this->get_resources($filter), $filter);
+		return $this->get_resources_table($this->get_resources($filter), $filter, "");
 	}
 		
 	function get_resources(&$filter) {
@@ -46,9 +46,11 @@ class ResourcesHtml {
 		ob_start();
 		?>
 		<table class="resourcesTableHeader" cellspacing="0" width="100%">
+		<? if ($label != "") { ?>
 		<tr>
 			<td colspan=4 class="tableHeaderTitle"><?= $label ?></td>
 		</tr>
+		<? } ?>
 		<tr>
 			<td width="50%" class="resourcesHeader" style="border-left:1px solid black;" <a href="?<?=$filter->get_url_parameters('title')?>">Title<?=$this->get_sort_icon($filter, 'title')?></a></td>
 			<td width="10%" class="resourcesHeader"><a href="?<?=$filter->get_url_parameters('type')?>">Type<?=$this->get_sort_icon($filter, 'type')?></a></td>

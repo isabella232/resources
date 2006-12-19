@@ -79,7 +79,7 @@
 
 		<p>$filter_summary 
 			$count resources.
-			<a href="resources.rss"><img src="images/rss.gif"/></a></p>
+			<a href="resources.rss"><img src="/images/rss2.gif"/></a></p>
 		
 
 		$resources_table

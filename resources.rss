@@ -38,17 +38,19 @@
 	$filter_string = $filter->get_url_parameters();	
 	if ($filter_string) $filter_string = '?'.$filter_string;
 	$resources = $Resources->get_resources($filter);
-	$count = count($resources);
+	$count = 10; // maximum number of entries in the result.
 	$host = $_SERVER['HTTP_HOST'];
 	$resources_root = "http://$host/resources";
-	
-	$title = $_GET['title'];
-	if (!$title) $title = "Eclipse Resources";
+	if (array_key_exists('title', $_GET)) {
+		$title = $_GET['title'];
+	} else {
+		$title = "Eclipse Resources";
+	}
 ?>
 <rss version="2.0">
   <channel>
     <title><?= $title ?></title>
-    <description><?= "$filter_summary ($count resources)" ?></description>
+    <description><?= "$filter_summary" ?></description>
     <link><![CDATA[<?=$resources_root?><?=$filter_string ?>]]></link>
     <image>
       <url><?= $resources_root ?>/images/eclipse.png</url>
@@ -57,6 +59,7 @@
     </image>
 <?php
 	foreach ($resources as $resource) {
+		if ($count-- == 0) break;
 		echo "\n\t<item>";
 		echo "\n\t\t<title><![CDATA[$resource->title]]></title>";
 		echo "\n\t\t<link>$resources_root/resource.php?id=$resource->id</link>";

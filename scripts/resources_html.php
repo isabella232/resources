@@ -65,6 +65,7 @@ class ResourcesHtml {
 		$countID = 0;
 		foreach($resources as $resource) {
 			$date = date("M d, Y", $resource->get_date()); // . "<br/><font size=-2>".$this->get_time_passed_string($resource->get_date())."</font>";
+			$date = str_replace(" ", "&nbsp;", $date);
 			?>
 			<tr class="resourcesData">
 				

@@ -52,7 +52,7 @@ class Filter {
 		$this->id = getHTTPParameter('id');
 		$this->recent = getHTTPParameter('recent');
 		$this->type = getHTTPParameter('type');
-		if (!in_array($this->type, array('article', 'publication', 'book', 'presentation', 'demo', 'code'))) {
+		if (!in_array($this->type, array('article', 'publication', 'webinar', 'podcast', 'book', 'presentation', 'demo', 'code'))) {
 			$this->type = null;
 		}
 		$this->category = getHTTPParameter('category');

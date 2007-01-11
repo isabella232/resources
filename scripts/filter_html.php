@@ -24,14 +24,16 @@ function get_filter_form(& $filter) {
 	
 	return <<<EOHTML
 			<ul>
-				<li><a href=".">Everything</a></li>
-				<li><a href="?recent=true">Recent additions</a></li>
-				<li><a href="?type=article">Eclipse Corner Articles</a></li>
-				<li><a href="?type=publication">Other Articles</a></li>
-				<li><a href="?type=book">Books</a></li>
-				<li><a href="?type=presentation">Presentations</a></li>
-				<li><a href="?type=demo">Demonstrations</a></li>
-				<li><a href="?type=code">Code Samples</a></li>
+				<li style="list-style-image: url('images/all.gif')"><a href=".">Everything</a></li>
+				<li style="list-style-image: url('images/new.gif')"><a href="?recent=true">Recent additions</a></li>
+				<li style="list-style-image: url('images/eclipse.gif')"><a href="?type=article">Eclipse Corner Articles</a></li>
+				<li style="list-style-image: url('images/publication.png')"><a href="?type=publication">Other Articles</a></li>
+				<li style="list-style-image: url('images/webinar.png')"><a href="?type=webinar">Webinars</a></li>
+				<li style="list-style-image: url('images/podcast.png')"><a href="?type=podcast">Podcasts</a></li>
+				<li style="list-style-image: url('images/book.png')"><a href="?type=book">Books</a></li>
+				<li style="list-style-image: url('images/presentation.png')"><a href="?type=presentation">Presentations</a></li>
+				<li style="list-style-image: url('images/demo.png')"><a href="?type=demo">Demonstrations</a></li>
+				<li style="list-style-image: url('images/code.png')"><a href="?type=code">Code Samples</a></li>
 			</ul>
 EOHTML;
 }

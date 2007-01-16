@@ -239,7 +239,7 @@ class ResourcesDB {
 		while (($row = mysql_fetch_row($result)) != null) {
 			$category = new ResourceCategory();
 			$category->id = $row[0];
-			$category->name = $row[1];
+			$category->title = $row[1];
 			array_push($categories, $category);
 		}
 		return $categories;

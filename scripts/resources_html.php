@@ -162,7 +162,16 @@ class ResourcesHtml {
 		$html = '';
 		if (count($resource->links) > 0) {
 			foreach ($resource->links as $link) {
-				$html .= "<p style=\"margin-left:3em;text-indent:-2em;\"><a target=\"_blank\" href=\"$link->path\">";
+				$target = '';
+				$external = '';
+				if (!$this->is_local_target($link->path)) {
+					$target = "target=\"_blank\"";
+					$external = '<img align="top" src="/resources/images/external.gif" title="This links outside of eclipse.org."/>';
+				} else {
+					$external = '<img align="top" src="/resources/images/eclipse.gif" title="This is eclipse.org content."/>';
+				}
+				
+				$html .= "<p style=\"margin-left:3em;text-indent:-2em;\"><a $target href=\"$link->path\">";
 		
 				$type = $link->type;
 				if (!$type) $type = $resource->type;
@@ -173,8 +182,10 @@ class ResourcesHtml {
 				if ($link->title) $html .= $link->title;
 				else $html .= $resource->title;
 		
-				$html .= '</a>';
-			
+				$html .= '</a>';		
+					
+				$html .= $external;
+				
 				$html .= " <img src=\"/resources/images/$link->language.gif\"/>";
 		
 				$html .= "<br/>";
@@ -189,6 +200,14 @@ class ResourcesHtml {
 			}
 		}
 		return $html;
+	}
+	
+	function is_local_target($path) {
+		// It's not an external path if it's relative.
+		if (strncmp($path, "http:", 5) != 0) return true;
+		
+		$host_path = 'http://' . $_SERVER['HTTP_HOST'];
+		return strncmp($path, $host_path, strlen($host_path)) == 0;
 	}
 	
 	function get_recent_resources_summary($maximum) {

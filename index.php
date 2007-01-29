@@ -87,6 +87,9 @@
 	</div>
 
 	<div id="rightcolumn">
+		<div class="sideitem" style="border:NONE;text-align:center">
+			<a href="http://www.eclipsecon.org/2007"><img src="http://www.eclipsecon.org/2007/image125x125.gif"/></a>
+		</div>
 		<div class="sideitem">
 			<h6>Show what?</h6>
 			$filter_form
@@ -104,7 +107,7 @@
 	</div>
 EOHTML;
 
-	$extraHtmlHeaders = "<link rel=\"alternate\" type=\"application/rss+xml\"title=\"Eclipse Resources\" href=\"/resources/resources.rss?$filter_string\">";
+	$extraHtmlHeaders = "<link rel=\"alternate\" type=\"application/rss+xml\"title=\"Eclipse Resources\" href=\"/resources/resources.rss\">";
 	$App->AddExtraHtmlHeader($extraHtmlHeaders);
 
 	# Generate the web page

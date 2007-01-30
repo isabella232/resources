@@ -88,7 +88,7 @@
 
 	<div id="rightcolumn">
 		<div class="sideitem" style="border:NONE;text-align:center">
-			<a href="http://www.eclipsecon.org/2007"><img src="http://www.eclipsecon.org/2007/image125x125.gif"/></a>
+			<a href="http://www.eclipsecon.org/?tag=eclipse-resources"><img src="http://www.eclipsecon.org/2007/image125x125.gif"/></a>
 		</div>
 		<div class="sideitem">
 			<h6>Show what?</h6>

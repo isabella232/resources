@@ -34,6 +34,7 @@ function get_filter_form(& $filter) {
 				<li style="list-style-image: url('images/presentation.png')"><a href="?type=presentation">Presentations</a></li>
 				<li style="list-style-image: url('images/demo.png')"><a href="?type=demo">Demonstrations</a></li>
 				<li style="list-style-image: url('images/code.png')"><a href="?type=code">Code Samples</a></li>
+				<li style="list-style-image: url('images/course.png')"><a href="?type=course">Courses</a></li>
 			</ul>
 EOHTML;
 }

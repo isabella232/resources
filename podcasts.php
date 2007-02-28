@@ -37,7 +37,7 @@ foreach($resources as $podcast) {
 	<itunes:author><?= $authors ?></itunes:author>
 	<itunes:summary><?= $podcast->description ?></itunes:summary>
 	<enclosure url="<?= $mp3_link->path?>" type="audio/mpeg" />
-	<guid><?= $mp3_link->path?></guid>
+	<guid><?= urlencode($mp3_link->path)?></guid>
 	<pubDate><?= $date ?></pubDate>
 	<itunes:keywords><?= $tags ?></itunes:keywords>
 </item>

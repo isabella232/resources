@@ -96,9 +96,7 @@ function get_author_cloud(& $filter) {
 		if ($count < 2) continue;
 		$author_name = htmlentities($author_name);
 		if (!$author_name) continue;
-		
-		$background = !$background;
-		
+				
 		$size = round($count / $max * 4);
 		
 		// Determine a colour for the link.
@@ -106,9 +104,7 @@ function get_author_cloud(& $filter) {
 		$green = 0; 
 		$blue = 255 - round($count / $max * 255);
 		
-	//	if ($background) $html .= "<span style=\"background: #fefacc\">";
 		$html .= "$separator<font size=\"$size\"><a style=\"color: rgb($red,$green,$blue)\" href=\"?author=$author_name\">$author_name</a></font>";
-		//if ($background) $html .= "</span>";
 		$separator = ', ';
 	}
 		

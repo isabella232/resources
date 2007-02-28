@@ -32,12 +32,13 @@ foreach($resources as $podcast) {
     $tags .= $separator . $category->title;
     $separator = ', ';
   }
+  $url = urlencode($mp4_link->path);
 ?><item>
 	<title><?=$podcast->title?></title>
 	<itunes:author><?= $authors ?></itunes:author>
 	<itunes:summary><?= $podcast->description ?></itunes:summary>
-	<enclosure url="<?= $mp3_link->path?>" type="audio/mpeg" />
-	<guid><?= htmlspecialchars($mp3_link->path)?></guid>
+	<enclosure url="<?= $url ?>" type="audio/mpeg" />
+	<guid><?= $url ?></guid>
 	<pubDate><?= $date ?></pubDate>
 	<itunes:keywords><?= $tags ?></itunes:keywords>
 </item>

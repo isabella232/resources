@@ -32,10 +32,11 @@ foreach($resources as $podcast) {
     $tags .= $separator . $category->title;
     $separator = ', ';
   }
+
+  $url = htmlspecialchars($mp3_link->path);
   // If the url is relative, prepend with site name. Assumes eclipse.org is home.
   // TODO Generalize to use name of actual host.
-  if (strncmp($url, "/", 1)) $url = "http://www.eclipse.org$url";
-  $url = htmlspecialchars($mp3_link->path);
+  if (strncmp($url, "/", 1) == 0) $url = "http://www.eclipse.org$url";
 ?><item>
 	<title><?=$podcast->title?></title>
 	<itunes:author><?= $authors ?></itunes:author>

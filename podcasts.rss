@@ -25,7 +25,7 @@
 		</itunes:owner>
 		<itunes:image
 			href="http://www.eclipse.org/images/EclipseBannerPic.jpg" />
-		<itunes:category text="Eclipse" />
+		<itunes:category text="Technology" />
 		<? include "podcasts.php" ?>
 	</channel>
 </rss>

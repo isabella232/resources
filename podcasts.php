@@ -19,7 +19,7 @@ foreach($resources as $podcast) {
   
   if (!$mp3_link) continue;
   
-  $date = date("D, j M Y  12:00:00 \G\M\T", $mp3_link->get_date());
+  $date = date("D, j M Y  12:00 \G\M\T", $mp3_link->get_date());
   
   $authors = ''; $separator = '';
   foreach ($mp3_link->authors as $author) {
@@ -41,7 +41,7 @@ foreach($resources as $podcast) {
 	<title><?=$podcast->title?></title>
 	<itunes:author><?= $authors ?></itunes:author>
 	<itunes:summary><?= $podcast->description ?></itunes:summary>
-	<enclosure url="<?= $url ?>" type="audio/mpeg" />
+	<enclosure url="<?= $url ?>" type="audio/mpeg" length="42"/>
 	<guid><?= $url ?></guid>
 	<pubDate><?= $date ?></pubDate>
 	<itunes:keywords><?= $tags ?></itunes:keywords>

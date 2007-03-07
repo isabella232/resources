@@ -5,7 +5,7 @@
 	version="2.0">
 	<channel>
 		<title>Eclipse Podcasts</title>
-		<link>http://www.eclipse.org/resources/podcasts.rss</link>
+		<link>http://www.eclipse.org/resources/?type=podcast</link>
 		<language>en-us</language>
 		<copyright>
 			&#xA9; The Eclipse Foundation,

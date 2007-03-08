@@ -1,4 +1,4 @@
 # Make sure that requests for RSS files are handled
 AddType application/x-httpd-php .rss
 
-Redirect permanent "/resources/podcasts/podcasts/Bartlett-Blewitt-OSGi-05Mar07.mp3" http://www.eclipse.org/downloads/download.php?r=1&file=/technology/phoenix/podcasts/Bartlett-Blewitt-OSGi-05Mar07.mp3
+Redirect permanent "/resources/podcasts/podcasts/Bartlett-Blewitt-OSGi-05Mar07.mp3" http:/www.eclipse.org/downloads/download.php?r=1&file=/technology/phoenix/podcasts/Bartlett-Blewitt-OSGi-05Mar07.mp3

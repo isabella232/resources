@@ -23,7 +23,7 @@
 			<itunes:name>Wayne Beaton</itunes:name>
 			<itunes:email>wayne@eclipse.org</itunes:email>
 		</itunes:owner>
-		<itunes:image
+		<image
 			href="http://www.eclipse.org/images/EclipseBannerPic.jpg" />
 		<itunes:category text="Technology" />
 		<? include "podcasts.php" ?>

@@ -52,24 +52,28 @@
 	
 	$pageTitle = "$resource->title";
 	$summary = $Resources_HTML->get_resource_summary($resource);
-	
-	# Paste your HTML content between the EOHTML markers!	
-	$html = <<<EOHTML
-	<link rel="stylesheet" type="text/css" href="layout.css" media="screen" />
+
+	ob_start();
+?>
+<link rel="stylesheet" type="text/css" href="layout.css" media="screen" />
 	
 	<div id="midcolumn">
 	
-		<h1>$pageTitle</h1>
+		<h1><?= $pageTitle ?></h1>
 
-		$summary
+		<?= $summary ?>
 		
 	</div>
 
+	<? if ($resource->type == 'podcast') { ?>
+	<div id="rightcolumn">
+		<? include "parts/podcasts.php" ?>
+	</div>
+	<? } ?>
 
-EOHTML;
-
-	# Generate the web page
+<?php
+	$html = ob_get_contents();
+	ob_end_clean();
+	
 	$App->generatePage($theme, $Menu, $Nav, $pageAuthor, $pageKeywords, $pageTitle, $html);
-	
-	
 ?>

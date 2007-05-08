@@ -40,19 +40,21 @@
 	# End: page-specific settings
 	#	
 	
-	require_once("scripts/resources_mgr.php");
-	require_once("scripts/resources_html.php");
+	require_once("scripts/resources.php");
 	
+	$resources = new Resources();
 	$id = $_GET['id'];
-	if ($id) $resource = $Resources->get_resource($id);
+	if ($id) $resource = $resources->get_resource($id);
 	if (!$resource) {
 		header ("Location: /resources");
 		exit;
 	}
 	
 	$pageTitle = "$resource->title";
-	$summary = $Resources_HTML->get_resource_summary($resource);
+	$summary = $resources->get_resource_summary($resource);
 
+	$resources->dispose();
+	
 	ob_start();
 ?>
 <link rel="stylesheet" type="text/css" href="layout.css" media="screen" />

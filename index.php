@@ -38,22 +38,22 @@
 	# End: page-specific settings
 	#	
 	
-	require_once("scripts/resources_mgr.php");
-	require_once("scripts/resources_html.php");
-	require_once("scripts/filter_core.php");
-	require_once("scripts/filter_html.php");
+	require_once("scripts/resources.php");
+	
+	$resources = new Resources();
 	
 	$filter = new Filter();	
 	$filter->populate_from_html_request_header();
-	//$sort = $_GET['sort'];
 	
-	$resources_list = $Resources->get_resources($filter);
+	$resources_list = $resources->get_resources($filter);
 	$count = count($resources_list);
 	
-	$resources_table = $Resources_HTML->get_resources_table($resources_list, $filter);
-	$filter_form = $Filters_HTML->get_filter_form($filter);
-	$category_cloud = $Filters_HTML->get_category_cloud($filter);
-	$authors_cloud = $Filters_HTML->get_author_cloud($filter);
+	$resources_table = $resources->get_resources_table($resources_list, $filter);
+	$filter_form = $resources->get_filter_form($filter);
+	$category_cloud = $resources->get_category_cloud($filter);
+	$authors_cloud = $resources->get_author_cloud($filter);
+	
+	$resources->dispose();
 	
 	$filter_summary = $filter->get_summary();
 	

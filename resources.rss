@@ -29,15 +29,20 @@
 	echo "<!ENTITY trade \"TM\">\n";
 	echo "]>";
 	
-	require_once("scripts/resources_mgr.php");
-	require_once("scripts/filter_core.php");
+	require_once("scripts/resources.php");
+	
+	$resources_mgr = new Resources();
 	
 	$filter = new Filter();	
 	$filter->populate_from_html_request_header();
+	$resources = $resources_mgr->get_resources($filter);
+	
+	$resources_mgr->dispose();	
+	
 	$filter_summary = $filter->get_summary();
 	$filter_string = $filter->get_url_parameters();	
 	if ($filter_string) $filter_string = '?'.$filter_string;
-	$resources = $Resources->get_resources($filter);
+	
 	$count = 10; // maximum number of entries in the result.
 	$host = $_SERVER['HTTP_HOST'];
 	$resources_root = "http://$host/resources";

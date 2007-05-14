@@ -1,11 +1,14 @@
 <?
-require_once("scripts/resources_mgr.php");
-require_once("scripts/filter_core.php");
+require_once("scripts/resources.php");
 
+$resources_mgr = new Resources();
+	
 $filter = new Filter();
 $filter->type = 'podcast';
 $filter->sortby = array('date');
-$resources = $Resources->get_resources($filter);
+
+$resources = $resources_mgr->get_resources($filter);
+$resources_mgr->dispose();	
 
 // TODO Currently assumes that podcasts are in mp3 format. Need to support other types?
 foreach($resources as $podcast) {

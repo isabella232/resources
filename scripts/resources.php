@@ -186,7 +186,7 @@ function get_languages(&$resource) {
 
 function get_resource_summary(& $resource) {
 		$html = '<table border=\"0\"><tbody><tr><td valign="top">';
-		$html .= htmlentities($resource->description);
+		$html .= $resource->description;
 		$html .= '<p>';
 		$html .= $this->get_resource_categories($resource);
 		$html .= '</p>';

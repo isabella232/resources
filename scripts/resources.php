@@ -178,7 +178,7 @@ function get_languages(&$resource) {
 		}
 
 		foreach($languages as $language => $ignore) {
-		  $html .= "$separator<img src=\"/resources/images/$language.gif\">";
+		  $html .= $separator.'['.$language.']';
 		  $separator = '&nbsp;';
 		}
 		return $html;

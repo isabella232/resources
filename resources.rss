@@ -21,7 +21,7 @@
 	#   Optional filter parameters can be provided (see scripts/filter_core.php
     #   for information) to prune the list.
 	#****************************************************************************
-	header('Content-type: application/rss+xml;charset=utf8');
+	header('Content-type: application/rss+xml;charset=UTF-8');
 	
 	// The next line needs to occur first in the file.
 	echo "<?xml version=\"1.0\"?>\n";
@@ -66,6 +66,7 @@
 	foreach ($resources as $resource) {
 		if ($count-- == 0) break;
 		echo "\n\t<item>";
+		echo "\n\t<guid>$resources_root/resource.php?id=$resource->id</guid>";
 		echo "\n\t\t<title><![CDATA[$resource->title]]></title>";
 		echo "\n\t\t<link>$resources_root/resource.php?id=$resource->id</link>";
 		echo "\n\t\t<description><![CDATA[$resource->description]]></description>";

@@ -21,7 +21,7 @@
 	#   Optional filter parameters can be provided (see scripts/filter_core.php
     #   for information) to prune the list.
 	#****************************************************************************
-	header('Content-type: text/xml');
+	header('Content-type: application/rss+xml;charset=utf8');
 	
 	// The next line needs to occur first in the file.
 	echo "<?xml version=\"1.0\"?>\n";
@@ -56,7 +56,7 @@
   <channel>
     <title><?= $title ?></title>
     <description><?= "$filter_summary" ?></description>
-    <link><![CDATA[<?=$resources_root?><?=$filter_string ?>]]></link>
+    <link><![CDATA[<?=$resources_root?>]]></link>
     <image>
       <url><?= $resources_root ?>/images/eclipse.png</url>
       <title>eclipse.org</title>
@@ -69,7 +69,7 @@
 		echo "\n\t\t<title><![CDATA[$resource->title]]></title>";
 		echo "\n\t\t<link>$resources_root/resource.php?id=$resource->id</link>";
 		echo "\n\t\t<description><![CDATA[$resource->description]]></description>";
-		$date = date("D, j M Y  12:00:00 \G\M\T", $resource->get_date());
+		$date = date("D, j M Y 12:00:00 \G\M\T", $resource->get_date());
 		echo "\n\t\t<pubDate>$date</pubDate>";
 		echo "\n\t</item>";
 	}

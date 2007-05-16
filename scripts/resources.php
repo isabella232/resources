@@ -178,7 +178,7 @@ function get_languages(&$resource) {
 		}
 
 		foreach($languages as $language => $ignore) {
-		  $html .= $separator.'['.$language.']';
+		  $html .= $separator.'<span style="font-family:monospace;font-size:90%;-moz-border-radius:2px;border-style:solid;border-width:1px">'.$language.'</span>';
 		  $separator = '&nbsp;';
 		}
 		return $html;

@@ -18,16 +18,22 @@
 	# Date:			2006-09-21
 	#
 	# Description:
-	#    This file dumps the current contents of the resources table.
+	#    This file dumps the current contents of the resources database.
 	#****************************************************************************
 	
+header('Content-type: text/plain');
 
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/smartconnection.class.php");
 
 $connection = new DBConnection();
 $connection->connect();
 
+dump_table("resource");
+dump_table("link");
 dump_table("author");
+dump_table("link_author");
+dump_table("category");
+dump_table("resource_category");
 
 $connection->disconnect();
 

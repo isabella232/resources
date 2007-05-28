@@ -18,11 +18,11 @@
 	# Date:			2006-09-21
 	#
 	# Description:
-	#    This file retu
+	#    This file dumps the current contents of the resources table.
 	#****************************************************************************
 	
 
-require_once ($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/dbconnection.class.php");
+require_once ($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/smartconnection.class.php");
 
 $connection = new DBConnection();
 $connection->connect();

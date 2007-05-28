@@ -46,10 +46,11 @@ function dump_table($name) {
 		$col_values = '';
 		$separator = '';
 		foreach($columns as $column) {
+			$value = mysql_real_escape_string($value);
 			$col_names .= $separator . $column;
-			$col_values .= $separator . "\"$row[$column]\"";
+			$col_values .= $separator . "\"$value\"";
 			$separator=',';
 		}
-		echo "insert into $name ($col_names) values ($col_values);";
+		echo "insert into $name ($col_names) values ($col_values);\n";
 	}
 }

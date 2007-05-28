@@ -46,7 +46,7 @@ function dump_table($name) {
 		$col_values = '';
 		$separator = '';
 		foreach($columns as $column) {
-			$value = mysql_real_escape_string($value);
+			$value = mysql_real_escape_string($row[$column]);
 			$col_names .= $separator . $column;
 			$col_values .= $separator . "\"$value\"";
 			$separator=',';

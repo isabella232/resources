@@ -31,31 +31,13 @@ class Resources {
   var $connection;
 
   function Resources() {
-  		/*
-  		 * If we're running on the server, the file will be found. If we
-  		 * are running locally (i.e. unit test environment), the file will
-  		 * not be found. If we're running on the server, use the server's
-  		 * DB connection class to build the connection. Otherwise, build it
-  		 * the old fashioned way.
-  		 */
-  		if (file_exists("/home/data/httpd/eclipse-php-classes/system/dbconnection_rw.class.php")) {
-  		  require_once "/home/data/httpd/eclipse-php-classes/system/dbconnection_rw.class.php";
-  		  $this->connection = new DBConnectionRW();
-  		  $this->connection->connect();
-  		} else {
-  		  $this->connection = mysql_connect(null, "root", null);
-  		  	
-  		  if (!$this->connection) {
-  		    echo( "<P>Unable to connect to the database server at this time.</P>" );
-  		    return;
-  		  }
-  		  	
-  		  mysql_select_db("local_eclipse", $this->connection);
-  		}
+ 	require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/smartconnection.class.php");
+  	$this->connection = new DBConnection();
+	$this->connection->connect();
   }
 
   function dispose() {
-    mysql_close($this->connection);
+    $this->connection->disconnect();
   }
   
 	function get_recent_resources_summary($maximum) {
@@ -178,7 +160,7 @@ function get_languages(&$resource) {
 		}
 
 		foreach($languages as $language => $ignore) {
-		  $html .= $separator.'<span style="font-family:monospace;font-size:90%;-moz-border-radius:2px;border-style:solid;border-width:1px">'.$language.'</span>';
+		  $html .= $separator."<img src=\"images/$language.gif\"/>";
 		  $separator = '&nbsp;';
 		}
 		return $html;

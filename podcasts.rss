@@ -1,31 +1,11 @@
-<? header('Content-type: text/xml'); ?>
-<?= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-" ?>
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
-	version="2.0">
-	<channel>
-		<title>Eclipse Podcasts</title>
-		<link>http://www.eclipse.org/resources/?type=podcast</link>
-		<language>en-us</language>
-		<copyright>
-			&#xA9; The Eclipse Foundation,
-			<?= date("Y", strtotime("now")) ?>
-		</copyright>
-		<itunes:subtitle>Eclipse Podcasts</itunes:subtitle>
-		<itunes:author>Various</itunes:author>
-		<itunes:summary>
-			These podcasts touch on a number of Eclipse-related topics.
-		</itunes:summary>
-		<description>
-			These podcasts touch on a number of Eclipse-related topics.
-		</description>
-		<itunes:owner>
-			<itunes:name>Wayne Beaton</itunes:name>
-			<itunes:email>wayne@eclipse.org</itunes:email>
-		</itunes:owner>
-		<image
-			href="http://www.eclipse.org/images/EclipseBannerPic.jpg" />
-		<itunes:category text="Technology" />
-		<? include "podcasts.php" ?>
-	</channel>
-</rss>
+<?php
+/* 
+ * Redirect requests for podcasts to Live.
+ * Make sure that we can handle any protocol;
+ * it should be either http or itpc.
+ */
+$protocol = $_SERVER['SERVER_PROTOCOL'];
+$protocol = split('/', $protocol);
+$protocol = strtolower($protocol[0]);
+header( 'Location: ' . $protocol . '://live.eclipse.org/eclipse_live_podcasts/feeds' ) ;
+?>

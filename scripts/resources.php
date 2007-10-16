@@ -205,7 +205,8 @@ function get_links(&$resource) {
 		      $external = '<img align="top" src="/resources/images/eclipse.gif" title="This is eclipse.org content."/>';
 		    }
 
-		    $html .= "<p style=\"margin-left:3em;text-indent:-2em;\"><a $target href=\"$link->path\">";
+		    $url = $this->revise_url($link->path);
+		    $html .= "<p style=\"margin-left:3em;text-indent:-2em;\"><a $target href=\"$url\">";
 
 		    $type = $link->type;
 		    if (!$type) $type = $resource->type;
@@ -242,6 +243,22 @@ function is_local_target($path) {
 
 		$host_path = 'http://' . $_SERVER['HTTP_HOST'];
 		return strncmp($path, $host_path, strlen($host_path)) == 0;
+}
+
+/*
+ * The main reason that this link exists is to ensure that URLs pointing to IBM developerWorks
+ * have the proper "referral code".
+ */
+function revise_url($url) {  
+  if (!strpos($url, "ibm.com/developerworks/")) return $url; // Not from developerworks
+  
+  $referral = "ca=dgr-eclipse-1";
+  if (strpos($url, $referral)) return $url; // Referral code is already there.
+  if (strpos($url,"?")) 
+    return $url . "&$referral";
+  else
+    return $url . "?$referral";
+  
 }
 
 function get_filter_form(& $filter) {

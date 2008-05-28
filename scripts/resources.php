@@ -671,12 +671,17 @@ class ResourcesBuilder {
   function &build_author(&$row) {
     $author = new Author();
     $author->id = $row['author_id'];
-    $author->name = $row['author_name'];
-    $author->email = $row['author_email'];
-    $author->company = $row['author_company'];
-    $author->link = $row['author_link'];
+    $author->name = $this->get_row_value($row, 'author_name');
+    $author->email = $this->get_row_value($row,'author_email');
+    $author->company = $this->get_row_value($row,'author_company');
+    $author->link = $this->get_row_value($row,'author_link');
 
     return $author;
+  }
+  
+  function &get_row_value($row, $key) {
+  	if (!array_key_exists($key, $row)) return null;
+  	return $row[$key];
   }
 }
 

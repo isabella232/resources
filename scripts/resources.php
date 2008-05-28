@@ -679,7 +679,7 @@ class ResourcesBuilder {
     return $author;
   }
   
-  function &get_row_value($row, $key) {
+  function &get_row_value(&$row, &$key) {
   	if (!array_key_exists($key, $row)) return null;
   	$value = $row[$key];
   	return $value;

@@ -681,7 +681,8 @@ class ResourcesBuilder {
   
   function &get_row_value($row, $key) {
   	if (!array_key_exists($key, $row)) return null;
-  	return $row[$key];
+  	$value = $row[$key];
+  	return $value;
   }
 }
 

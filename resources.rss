@@ -52,14 +52,15 @@
 		$title = "Eclipse Resources";
 	}
 ?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
+    <atom:link href="http://www.eclipse.org/resources/resources.rss" rel="self" type="application/rss+xml" />
     <title><?= $title ?></title>
     <description><?= "$filter_summary" ?></description>
     <link><![CDATA[<?=$resources_root?>]]></link>
     <image>
       <url><?= $resources_root ?>/images/eclipse.png</url>
-      <title>eclipse.org</title>
+      <title><?= $title ?></title>
       <link><?=$resources_root?></link>
     </image>
 <?php

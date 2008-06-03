@@ -119,9 +119,11 @@ class Filter {
 		if ($sort_field) array_push($sort, $sort_field);
 		// Add existing sort fields in the order they occur.
 		// Do not add if the field is already in the array.
-		foreach($this->sortby as $sortby) {
-			if (!$sortby) continue; // Don't add blanks
-			if (!in_array($sortby, $sort)) array_push($sort, $sortby);
+		if ($this->sortby) {
+			foreach($this->sortby as $sortby) {
+				if (!$sortby) continue; // Don't add blanks
+				if (!in_array($sortby, $sort)) array_push($sort, $sortby);
+			}
 		}
 	
 		if (count($sort) > 0) {

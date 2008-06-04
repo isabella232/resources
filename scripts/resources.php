@@ -171,47 +171,25 @@ return $html;
 	</tr>
 	<? } ?>
 	<tr>
-		<td width="50%" class="resourcesHeader"
-			style="border-left:1px solid black;"><a
-			href="?<?=$filter->get_url_parameters('title')?>">Title<?=$this->get_sort_icon($filter, 'title')?></a></td>
-		<td width="10%" class="resourcesHeader"><a
-			href="?<?=$filter->get_url_parameters('type')?>">Type<?=$this->get_sort_icon($filter, 'type')?></a></td>
-		<td width="10%" class="resourcesHeader"><a
-			href="?<?=$filter->get_url_parameters('date')?>">Date<?=$this->get_sort_icon($filter, 'date')?></a></td>
-		<td width="10%" class="resourcesHeader"
-			style="border-right:1px solid black;" align="center">&nbsp;</td>
+		<td width="50%" class="resourcesHeader" style="border-left:1px solid black;"><a href="?<?=$filter->get_url_parameters('title')?>">Title<?=$this->get_sort_icon($filter, 'title')?></a></td>
+		<td width="10%" class="resourcesHeader"><a href="?<?=$filter->get_url_parameters('type')?>">Type<?=$this->get_sort_icon($filter, 'type')?></a></td>
+		<td width="10%" class="resourcesHeader"><a href="?<?=$filter->get_url_parameters('date')?>">Date<?=$this->get_sort_icon($filter, 'date')?></a></td>
+		<td width="10%" class="resourcesHeader"	style="border-right:1px solid black;" align="center">&nbsp;</td>
 	</tr>
 </table>
 <div class="resources">
 <table width="100%" class="resourcesTable" cellspacing="0">
 
 <?
-$countID = 0;
 foreach($resources as $resource) {
-  $date = date("M d, Y", $resource->get_date()); // . "<br/><font size=-2>".$this->get_time_passed_string($resource->get_date())."</font>";
+  $date = date("M d, Y", $resource->get_date());
   $date = str_replace(" ", "&nbsp;", $date);
-  ?>
-	<tr class="resourcesData">
-
-		<td width="50%">
-		<div class="invisible" id="<?= $resource->id ?>"><a class="expandDown"
-			onclick="t('<?= $resource->id ?>', '<?= $resource->id . 'a' ?>')"><?=$resource->title?></a>
-		<a href="/resources/resource.php?id=<?=$resource->id?>"><img
-			src="/resources/images/more.gif" /></a></div>
-		</td>
-		<td width="10%" align="center" valign="middle" class="paddingLeft"><img
-			src="/resources/images/<?=$resource->type;?>.png"
-			alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>" /></td>
-		<td width="10%" align="right"><?= $date ?></td>
-		<td width="10%" align="center"><?=$this->get_languages($resource);?></td>
+  ?><tr class="resourcesData">
+		<td width="50%"><div class="invisible" id="<?= $resource->id ?>"><a class="expandDown" onclick="t('<?= $resource->id ?>', '<?= $resource->id . 'a' ?>')"><?=$resource->title?></a><a href="/resources/resource.php?id=<?=$resource->id?>"><img src="/resources/images/more.gif"/></a></div></td>
+		<td width="10%" align="center" valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
+		<td width="10%" align="right"><?= $date ?></td><td width="10%" align="center"><?=$this->get_languages($resource);?></td>
 	</tr>
-	<tr>
-		<td colspan="4">
-		<div class="invisible" id="<?= $resource->id . 'a';?>"></div>
-		</td>
-	</tr>
-	<?
-	$countID++;
+	<tr><td colspan="4"><div class="invisible" id="<?= $resource->id . 'a';?>"></div></td></tr><?
 }
 ?>
 </table>

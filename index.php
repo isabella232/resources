@@ -48,7 +48,7 @@
 	$resources_list = $resources->get_resources($filter);
 	$count = count($resources_list);
 	
-	$resources_table = $resources->get_resources_table2($resources_list, $filter);
+	$resources_table = $resources->get_resources_table($resources_list, $filter);
 	$filter_form = $resources->get_filter_form($filter);
 	$category_cloud = $resources->get_category_cloud($filter);
 	$authors_cloud = $resources->get_author_cloud($filter);
@@ -62,6 +62,18 @@
 	ob_start();
 ?>	
 
+	<link rel="stylesheet" type="text/css" href="layout.css" media="screen" />
+		<script language="javascript">
+		function t(i, j) {
+			var e = document.getElementById(i);
+			var f = document.getElementById(j);
+			var t = e.className;
+			if (t.match('invisible')) { t = t.replace(/invisible/gi, 'visible'); }
+			else { t = t.replace(/visible/gi, 'invisible'); }
+			e.className = t;
+			f.className = t;
+		}
+		</script>	
 	<div id="midcolumn">
 		<h1><?= $pageTitle ?></h1>
 		<p><?= $filter_summary ?> 

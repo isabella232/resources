@@ -234,13 +234,13 @@ function get_languages(&$resource) {
 
 function get_resource_summary(& $resource) {
 		$html = '<table border=\"0\"><tbody><tr><td valign="top">';
-		$html .= $resource->description;
+		$html .= htmlentities($resource->description);
 		$html .= '<p>';
 		$html .= $this->get_resource_categories($resource);
 		$html .= '</p>';
 		$html .= $this->get_links($resource);
 		$html .= '</td>';
-//		$html .= $resource->image ? "<td valign=\"top\"><img width=\"100px\" align=\"right\" src=\"$resource->image\"/></td>" : '';
+		$html .= $resource->image ? "<td valign=\"top\"><img width=\"100px\" align=\"right\" src=\"$resource->image\"/></td>" : '';
 		$html .= '</tr></tbody></table>';
 		return $html;
 }
@@ -280,8 +280,8 @@ function get_links(&$resource) {
 		      $html .= "<img style=\"vertical-align:text-top;\" alt=\"[$type]\" src=\"/resources/images/$type.png\"/> ";
 		    }
 		     
-		    if ($link->title) $html .= $link->title;
-		    else $html .= $resource->title;
+		    if ($link->title) $html .= htmlentities($link->title);
+		    else $html .= htmlentities($resource->title);
 
 		    $html .= '</a>';
 		     

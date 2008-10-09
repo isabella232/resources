@@ -63,6 +63,8 @@
 ?>	
 
 	<div id="midcolumn">
+		<div style="float:right;border:solid;padding:2px;border-width:1px;background:white"><a href="http://live.eclipse.org"><img src="http://live.eclipse.org/files/images/eclipse_live_logo_header.jpg"/></a><br/><font size="-2">For podcasts, webinars, and more...</font></div>
+		
 		<h1><?= $pageTitle ?></h1>
 		<p><?= $filter_summary ?> 
 		<?= $count ?> resources.

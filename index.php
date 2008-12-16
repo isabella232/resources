@@ -94,6 +94,6 @@
 	
 	$extraHtmlHeaders = "<link rel=\"alternate\" type=\"application/rss+xml\"title=\"Eclipse Resources\" href=\"/resources/resources.rss\">";
 	$App->AddExtraHtmlHeader($extraHtmlHeaders);
-
+	$App->Promotion = TRUE;
 	$App->generatePage($theme, $Menu, $Nav, $pageAuthor, $pageKeywords, $pageTitle, $html);
 ?>

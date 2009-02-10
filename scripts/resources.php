@@ -138,7 +138,7 @@ return $html;
 //========
 // New version of the get_resources_table method
 
-  function get_resources_table2(&$resources, &$filter, $label="Technical Resources") {
+  function get_resources_table2(&$resources, &$filter, $label=null) {
     ob_start();
     ?>	<link rel="stylesheet" type="text/css" href="layout.css" media="screen" />
     	<script src="/eclipse.org-common/yui/2.3.1/yahoo/yahoo.js"></script> 
@@ -164,7 +164,8 @@ return $html;
 				null);
 		}
 		</script>	
-<table class="resourcesTableHeader" cellspacing="0" width="100%">
+<div class="resources">
+<table class="resourcesTable" cellspacing="0" width="100%">
 <? if ($label != "") { ?>
 	<tr>
 		<td colspan=4 class="tableHeaderTitle"><?= $label ?></td>
@@ -176,9 +177,6 @@ return $html;
 		<td width="10%" class="resourcesHeader"><a href="?<?=$filter->get_url_parameters('date')?>">Date<?=$this->get_sort_icon($filter, 'date')?></a></td>
 		<td width="10%" class="resourcesHeader"	style="border-right:1px solid black;" align="center">&nbsp;</td>
 	</tr>
-</table>
-<div class="resources">
-<table width="100%" class="resourcesTable" cellspacing="0">
 
 <?
 foreach($resources as $resource) {

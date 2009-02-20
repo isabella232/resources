@@ -333,8 +333,9 @@ function get_filter_form(& $filter) {
 				<li style="list-style-image: url('images/new.gif')"><a href="?recent=true">Recent additions</a></li>
 				<li style="list-style-image: url('images/eclipse.gif')"><a href="?type=article">Eclipse Corner Articles</a></li>
 				<li style="list-style-image: url('images/publication.png')"><a href="?type=publication">Other Articles</a></li>
-				<li style="list-style-image: url('images/webinar.png')"><a href="?type=webinar">Webinars</a></li>
-				<li style="list-style-image: url('images/podcast.png')"><a href="?type=podcast">Podcasts</a></li>
+				<li style="list-style-image: url('images/study.png')"><a href="?type=study">Case Studies</a></li>
+				<!-- <li style="list-style-image: url('images/webinar.png')"><a href="?type=webinar">Webinars</a></li>
+				<li style="list-style-image: url('images/podcast.png')"><a href="?type=podcast">Podcasts</a></li> --> 
 				<li style="list-style-image: url('images/book.png')"><a href="?type=book">Books</a></li>
 				<li style="list-style-image: url('images/presentation.png')"><a href="?type=presentation">Presentations</a></li>
 				<li style="list-style-image: url('images/demo.png')"><a href="?type=demo">Demonstrations</a></li>

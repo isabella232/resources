@@ -44,6 +44,7 @@ class Filter {
 	var $author;
 	var $since;
 	var $sortby;
+	var $valid_types = array('article', 'publication', 'webinar', 'podcast', 'study', 'book', 'presentation', 'demo', 'code', 'course');
 	
 	function Filter() {
 	}
@@ -52,8 +53,10 @@ class Filter {
 		$this->id = getHTTPParameter('id');
 		$this->recent = getHTTPParameter('recent');
 		$this->type = getHTTPParameter('type');
-		if (!in_array($this->type, array('article', 'publication', 'webinar', 'podcast', 'book', 'presentation', 'demo', 'code', 'course'))) {
+		echo "hello";
+		if (!in_array($this->type, $this->valid_types)) {
 			$this->type = null;
+			echo $this->type;
 		}
 		$this->category = getHTTPParameter('category');
 		if (getHTTPParameter('author')) $this->author = html_entity_decode(getHTTPParameter('author'));

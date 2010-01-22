@@ -155,7 +155,7 @@ class Filter {
 			$type = $this->type;
 			if ($type == 'code') $type = 'code samples';
 			else if ($type == 'demo') $type = 'demonstrations';
-			else if ($type == 'study') $type = 'case studies'
+			else if ($type == 'study') $type = 'case studies';
 			else $type = $type.'s';
 			$summary .= $type;
 		} else {

@@ -23,7 +23,7 @@
 #    resource information as HTML.
 #****************************************************************************
 
-require_once("resources.php");
+require_once($_SERVER['DOCUMENT_ROOT']. "/resources/scripts/resources.php");
 
 $Resources_HTML = new ResourcesHtml();
 

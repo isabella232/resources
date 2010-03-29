@@ -65,7 +65,6 @@ class Resources {
     $filter = new Filter();
     $filter->category = $pillar;
     $filter->sortby = array('date');
-		krumo($filter);
     return $this->get_resources_table2($this->get_resources($filter), $filter, $title);
   }
   

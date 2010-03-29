@@ -22,10 +22,10 @@
 #    $Resources. This class is used as an entry point into the underlying resources
 #    storage mechanism (it is a Facade).
 #****************************************************************************
-require_once('resources_core.php');
-require_once('categories_core.php');
-require_once('authors_core.php');
-require_once('filter_core.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/resources_core.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/categories_core.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/authors_core.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/filter_core.php');
 
 class Resources {
   var $connection;
@@ -65,8 +65,8 @@ class Resources {
     $filter = new Filter();
     $filter->category = $pillar;
     $filter->sortby = array('date');
-
-    return $this->get_resources_table($this->get_resources($filter), $filter, $title);
+		krumo($filter);
+    return $this->get_resources_table2($this->get_resources($filter), $filter, $title);
   }
   
   function get_resources_table(&$resources, &$filter, $label="Technical Resources") {
@@ -140,12 +140,11 @@ return $html;
 
   function get_resources_table2(&$resources, &$filter, $label=null) {
     ob_start();
-    ?>	<link rel="stylesheet" type="text/css" href="layout.css" media="screen" />
-    	<script src="/eclipse.org-common/yui/2.3.1/yahoo/yahoo.js"></script> 
+    ?>	<script src="/eclipse.org-common/yui/2.3.1/yahoo/yahoo.js"></script> 
     	<script src="/eclipse.org-common/yui/2.3.1/event/event.js"></script>
     	<script src="/eclipse.org-common/yui/2.3.1/connection/connection.js"></script> 
 		<script language="javascript">
-		function t(i, j) {
+		function t_r(i, j) {
 			var e = document.getElementById(i);
 			var f = document.getElementById(j);
 			var t = e.className;
@@ -183,7 +182,13 @@ foreach($resources as $resource) {
   $date = date("M d, Y", $resource->get_date());
   $date = str_replace(" ", "&nbsp;", $date);
   ?><tr class="resourcesData">
-		<td width="50%"><div class="invisible" id="<?= $resource->id ?>"><a class="expandDown" onclick="t('<?= $resource->id ?>', '<?= $resource->id . 'a' ?>')"><?=$resource->title?></a><a href="/resources/resource.php?id=<?=$resource->id?>"><img src="/resources/images/more.gif"/></a></div></td>
+		<td width="50%">
+			
+			<div class="invisible" id="<?= $resource->id ?>">
+				<a class="norgie" onclick="t_r('<?= $resource->id ?>', '<?= $resource->id . 'a' ?>')"/>
+				<a href="/resources/resource.php?id=<?=$resource->id?>"><?=$resource->title?></a>
+			</div>
+		</td>
 		<td width="10%" align="center" valign="middle" class="paddingLeft"><img src="/resources/images/<?=$resource->type;?>.png" alt="<?=$resource->type;?>" title="<?=ucwords($resource->type);?>"/></td>
 		<td width="10%" align="right"><?= $date ?></td><td width="10%" align="center"><?=$this->get_languages($resource);?></td>
 	</tr>

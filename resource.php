@@ -47,7 +47,8 @@
 	require_once("scripts/resources.php");
 	$resources = new Resources();
 	$id = $_GET['id'];
-	if ($id) $resource = $resources->get_resource($id);
+	if (preg_match('/\d+/', $id)) 
+		$resource = $resources->get_resource($id);
 	if (!$resource) {
 		header ("Location: /resources");
 		exit;

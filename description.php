@@ -26,10 +26,17 @@
 	#
 	#****************************************************************************
 
-	require_once("scripts/resources.php");
+	require_once(dirname(__FILE__) . "/scripts/resources.php");	
+	require_once($_SERVER['DOCUMENT_ROOT'] .'/projects/classes/debug.php');
+	trace_file_info(__FILE__);	
 	
+	$id = $App->getHTTPParameter('id');
+	if (!preg_match('/^\d+$/', $id)) {
+		header ("Location: /resources");
+		exit;
+	}
+
 	$resources = new Resources();
-	$id = $_GET['id'];
 	if ($id) $resource = $resources->get_resource($id);
 	if (!$resource) {
 		header ("Location: /resources");

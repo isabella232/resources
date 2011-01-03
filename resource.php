@@ -40,10 +40,6 @@
 	# End: page-specific settings
 	#	
 	
-	
-	header ("Location: /resources");
-	exit;	
-	
 	require_once("scripts/resources.php");
 	$resources = new Resources();
 	$id = $_GET['id'];

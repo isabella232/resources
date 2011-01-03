@@ -74,6 +74,14 @@ class Filter {
 	function Filter() {
 	}
 	
+	/**
+	 * This function populates the receiver with information from the HTTP
+	 * header. Note that the information that is gathered can reasonably be
+	 * considered 'clean' by virtue of all HTTP parameters being retrieved 
+	 * via the getHTTPParameter function.
+	 * 
+	 * @see getHTTPParameter()
+	 */
 	function populate_from_html_request_header() {
 		
 		$this->id = getHTTPParameter('id');

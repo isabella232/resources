@@ -35,6 +35,9 @@ $Nav = new Nav();
 $Menu = new Menu();		
 include($App->getProjectCommon());    
 
+require_once($_SERVER['DOCUMENT_ROOT'] .'/projects/classes/debug.php');
+trace_file_info(__FILE__);
+
 	# Begin: page-specific settings.  Change these. 
 	$pageKeywords	= "Eclipse, software development, resources, projects, talks";
 	$pageAuthor		= "Wayne Beaton";
@@ -82,6 +85,7 @@ include($App->getProjectCommon());
 
 		<?= $summary ?>
 		
+		<?php echo get_trace_html(); ?>
 	</div>
 
 	<? if ($resource->type == 'podcast') { ?>

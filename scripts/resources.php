@@ -28,6 +28,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/resources_core.php')
 require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/categories_core.php');
 require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/authors_core.php');
 require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/filter_core.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/projects/classes/debug.php');
+trace_file_info(__FILE__);
 
 class Resources {
 	var $connection;
@@ -571,6 +573,8 @@ EOHTML;
 			', author.id as author_id, author.name as author_name, author.email, author.company, author.link ' .
 			' from resource LEFT JOIN resource_category ON (resource.id = resource_category.resource_id) LEFT JOIN category ON (category.id = resource_category.category_id) LEFT JOIN link ON (link.resource_id = resource.id) LEFT JOIN link_author ON (link.id = link_author.link_id) LEFT JOIN author ON (link_author.author_id = author.id)'.
 			" where resource.id=$id";
+		
+		trace ($sql);
 		
 		$result = $App->eclipse_sql($sql);
 		if (!$result) {

@@ -504,6 +504,8 @@ EOHTML;
    * that match the filter.
    */
   function get_resources($filter) {
+  	global $App;
+  	
     $sql = 'select resource.id as resource_id, resource.type as resource_type, resource.title as resource_title, resource.description as resource_description, resource.image_path as resource_image '.
     ', category.id as category_id, category.name as category_name' .
     ', link.id as link_id, link.type as link_type, link.title as link_title, link.create_date as link_date, link.language as link_language, link.path as link_path'.
@@ -552,10 +554,10 @@ EOHTML;
       }
     }
 
-    $result = mysql_query($sql);
+    trace ($sql);
+    
+    $result = $App->eclipse_sql($sql);
     if (!$result) {
-      echo $sql;
-      echo mysql_error();
       return null;
     }
 

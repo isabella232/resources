@@ -25,6 +25,9 @@
 
 require_once($_SERVER['DOCUMENT_ROOT']. "/resources/scripts/resources.php");
 
+require_once($_SERVER['DOCUMENT_ROOT'] .'/projects/classes/debug.php');
+trace_file_info(__FILE__);
+
 $Resources_HTML = new ResourcesHtml();
 
 /*

@@ -10,6 +10,9 @@
  *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
  *******************************************************************************/
 
+require_once($_SERVER['DOCUMENT_ROOT'] .'/projects/classes/debug.php');
+trace_file_info(__FILE__);
+
 /*
  * This file defines the Resource and ResourceLink classes. These classes
  * are used to represent resource information.

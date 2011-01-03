@@ -10,6 +10,9 @@
  *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
  *******************************************************************************/
 
+require_once($_SERVER['DOCUMENT_ROOT'] .'/projects/classes/debug.php');
+trace_file_info(__FILE__);
+
 /**
  * This function returns the value associated with the specified HTTP
  * request parameter. The returned result is 'clean' in that any

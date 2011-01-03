@@ -23,7 +23,8 @@
 	
 header('Content-type: text/plain');
 
-require_once ($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/smartconnection.class.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/app.class.php");	
+$App = new App();
 
 $connection = new DBConnection();
 $connection->connect();
@@ -38,7 +39,8 @@ dump_table("resource_category");
 $connection->disconnect();
 
 function dump_table($name) {
-	$result = mysql_query("select * from $name");
+	global $App;
+	$result = $App->eclipse_sql("select * from $name");
 	while ($row = mysql_fetch_assoc($result)) {
 		$columns = array_keys($row);
 		

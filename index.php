@@ -1,4 +1,4 @@
-<?php  																														require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/app.class.php");	require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/nav.class.php"); 	require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/menu.class.php"); 	$App 	= new App();	$Nav	= new Nav();	$Menu 	= new Menu();		include($App->getProjectCommon());    # All on the same line to unclutter the user's desktop'
+<?php
 /*******************************************************************************
  * Copyright (c) 2006 Eclipse Foundation and others.
  * All rights reserved. This program and the accompanying materials
@@ -22,7 +22,16 @@
 	#    can be filtered using URL parameters (see ./scripts/filter_core.php
 	#    for more information about the types of parameters.
 	#****************************************************************************
+require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/app.class.php");	
+require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/nav.class.php"); 	
+require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/menu.class.php"); 	
+$App = new App();
+$Nav = new Nav();
+$Menu = new Menu();
+include($App->getProjectCommon()); 
 
+require_once($_SERVER['DOCUMENT_ROOT'] .'/projects/classes/debug.php');
+trace_file_info(__FILE__);
 	#
 	# Begin: page-specific settings.  Change these. 
 	$pageTitle 		= "Eclipse Resources";
@@ -63,12 +72,13 @@
 ?>	
 
 	<div id="midcolumn">
-		
-		<h1><?= $pageTitle ?></h1>
-		<p><?= $filter_summary ?> 
-		(<?= $count ?> resources)
-			<a href="resources.rss"><img src="/images/rss2.gif"/></a></p>
-			<?= $resources_table ?>
+		<?php 
+			echo "<h1>$pageTitle</h1>";
+			echo "<p>$filter_summary ($count resources) 
+				<a href=\"resources.rss\"><img src=\"/images/rss2.gif\"/></a></p>";
+			echo $resources_table;
+			echo get_trace_html();
+		?>
 	</div>
 
 	<div id="rightcolumn">
@@ -78,17 +88,17 @@
 		</div>
 		<div class="sideitem">
 			<h6>Show what?</h6>
-			<?= $filter_form ?>
+			<?php echo $filter_form ?>
 		</div>
 		<div class="sideitem">
 			<h6>Categories</h6>
-			<?= $category_cloud ?>
+			<?php echo $category_cloud ?>
 		</div>
 		<div class="sideitem">
 			<h6>Authors</h6>
-			<?= $authors_cloud ?>
+			<?php echo $authors_cloud ?>
 		</div>
-		<? include "parts/podcasts.php" ?>
+		<?php include "parts/podcasts.php" ?>
 	</div>
 	
 <?php

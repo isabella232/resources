@@ -9,10 +9,35 @@
  * Contributors:
  *    Wayne Beaton (Eclipse Foundation)- initial API and implementation
  *******************************************************************************/
+
+/**
+ * This function returns the value associated with the specified HTTP
+ * request parameter. The returned result is 'clean' in that any
+ * html entities will have been decoded and the value sanitized against
+ * SQL injection attack.
+ */
 function getHTTPParameter($name) {
+	return asSafeSQL(html_entity_decode(getRawHttpParameter($name)));
+}
+
+function getRawHttpParameter($name) {
+	global $App;
+	
+	if ($App) return $App->getHTTPParameter($name);
+	
 	if(array_key_exists($name, $_GET))
-		return $_GET[$name];
+		return asSafeSQL($_GET[$name]);
+		
 	return null;
+}
+
+function asSafeSQL($value) {
+	global $App;
+	
+	if (!$value) return null;
+	
+	if ($App) return $App->sqlSanitize($value);
+	return mysql_real_escape_string($value);
 }
 
 /*
@@ -50,6 +75,7 @@ class Filter {
 	}
 	
 	function populate_from_html_request_header() {
+		
 		$this->id = getHTTPParameter('id');
 		$this->recent = getHTTPParameter('recent');
 		$this->type = getHTTPParameter('type');
@@ -70,6 +96,7 @@ class Filter {
 		$sortby = array();
 		foreach($fields as $field) {
 			$field = trim($field);
+			if (!in_array($field, array('date', 'title', 'type'))) continue;
 			if (strlen($field) > 0) array_push($sortby, $field);
 		}
 		if (count($sortby)==0) array_push($sortby, 'date');

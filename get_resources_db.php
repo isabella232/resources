@@ -23,6 +23,7 @@
 	
 header('Content-type: text/plain');
 
+require_once($_SERVER['DOCUMENT_ROOT'] .'/projects/classes/debug.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/app.class.php");	
 $App = new App();
 

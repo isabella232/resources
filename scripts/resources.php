@@ -12,15 +12,17 @@
 
 #*****************************************************************************
 #
-# resources_mgr.php
+# resources.php
 #
 # Author: 		Wayne Beaton
-# Date:			2005-11-07
+# Date:			November 7, 2005
+# Updated:      January 2, 2011 to use $App database functionality.
 #
 # Description:
-#    This file defines the ResourcesMgr class along with a singleton instance,
-#    $Resources. This class is used as an entry point into the underlying resources
-#    storage mechanism (it is a Facade).
+#    This file defines the Resources class. This class is used as an entry 
+#    point into the underlying resources storage mechanism.
+#
+# This file assumes that the $App variable has been declared.
 #****************************************************************************
 require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/resources_core.php');
 require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/categories_core.php');
@@ -28,19 +30,20 @@ require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/authors_core.php');
 require_once($_SERVER['DOCUMENT_ROOT'] .'/resources/scripts/filter_core.php');
 
 class Resources {
-  var $connection;
+	var $connection;
 
-  function Resources() {
- 	require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/smartconnection.class.php");
-  	$this->connection = new DBConnection();
-	$this->connection->connect();
-  }
+	function Resources() {
+		require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/smartconnection.class.php");
+		$this->connection = new DBConnection();
+		$this->connection->connect();
+	}
 
-  function dispose() {
-    $this->connection->disconnect();
-  }
+	function dispose() {
+		$this->connection->disconnect();
+	}
   
 	function get_recent_resources_summary($maximum) {
+		
 		$result = mysql_query("select resource.id, resource.title, max(link.create_date) as link_date from resource, link where resource.id = link.resource_id group by resource.id order by link_date desc limit $maximum");
 		if ($error = mysql_error()) {
 			return $error;
@@ -560,6 +563,8 @@ EOHTML;
     return $resources_builder->resources;
   }
   	function get_resource($id) {
+  		global $App;
+  		
 		$sql = 'select resource.id as resource_id, resource.type as resource_type, resource.title as resource_title, resource.description as resource_description, resource.image_path as resource_image '.
 			', category.id as category_id, category.name as category_name' .
 			', link.id as link_id, link.type as link_type, link.title as link_title, link.create_date as link_date, link.language as link_language, link.path as link_path'.
@@ -567,9 +572,8 @@ EOHTML;
 			' from resource LEFT JOIN resource_category ON (resource.id = resource_category.resource_id) LEFT JOIN category ON (category.id = resource_category.category_id) LEFT JOIN link ON (link.resource_id = resource.id) LEFT JOIN link_author ON (link.id = link_author.link_id) LEFT JOIN author ON (link_author.author_id = author.id)'.
 			" where resource.id=$id";
 		
-		$result = mysql_query($sql);
+		$result = $App->eclipse_sql($sql);
 		if (!$result) {
-			echo mysql_error();
 			return null;
 		}
 		

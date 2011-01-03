@@ -34,21 +34,20 @@ trace_file_info(__FILE__);
 class Resources {
 	var $connection;
 
-	function Resources() {
-		require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/smartconnection.class.php");
-		$this->connection = new DBConnection();
-		$this->connection->connect();
-	}
-
 	function dispose() {
-		$this->connection->disconnect();
+		// TODO remove this (after hunting down callers).
 	}
   
 	function get_recent_resources_summary($maximum) {
+		global $App;
 		
-		$result = mysql_query("select resource.id, resource.title, max(link.create_date) as link_date from resource, link where resource.id = link.resource_id group by resource.id order by link_date desc limit $maximum");
+		$sql = "select resource.id, resource.title, max(link.create_date) as link_date from resource, link where resource.id = link.resource_id group by resource.id order by link_date desc limit $maximum";
+		
+		trace ($sql);
+		
+		$result = $App->eclipse_sql($sql);
 		if ($error = mysql_error()) {
-			return $error;
+			return error;
 		}
 		
 		$html = '<ul>';
@@ -596,6 +595,8 @@ EOHTML;
    * the number of resources in the category.
    */
   function & get_categories_with_resource_count($type=null) {
+  	global $App;
+  	
     $sql = "select category.name, count(resource.id) " .
     "from category, resource_category, resource " .
     "where category.id = resource_category.category_id and resource_category.resource_id = resource.id";
@@ -604,7 +605,9 @@ EOHTML;
 
     $sql .= " group by category.name order by upper(category.name)";
 
-    $result = mysql_query($sql);
+    trace ($sql);
+    
+    $result = $App->eclipse_sql($sql);
     $categories = array();
     while (($row = mysql_fetch_row($result)) != null) {
       $categories[$row[0]] = $row[1];
@@ -617,13 +620,17 @@ EOHTML;
    * the number of resources authored.
    */
   function & get_authors_with_resource_count() {
+  	global $App;
+  	
     $sql = "select author.name, count(resource.id) " .
     "from resource join link on (resource.id = link.resource_id) join link_author on (link.id = link_author.link_id) join author on (link_author.author_id = author.id)" .
     "group by author.name";
 
-    $result = mysql_query($sql);
+    trace ($sql);
+    
+    $result = $App->eclipse_sql($sql);
     if (!$result) {
-      echo mysql_error();
+      trace (mysql_error());
       return array();
     }
     $authors = array();
@@ -639,8 +646,13 @@ EOHTML;
    * (i.e. subqueries).
    */
   function get_resource_ids_for_author($author) {
+  	global $App;
+  	
     $sql = "select resource.id from resource join link on (link.resource_id = resource.id) join link_author on (link.id = link_author.link_id) join author on (link_author.author_id = author.id) where author.name = '$author'";
-    $result = mysql_query($sql);
+
+    trace ($sql);
+    
+    $result = $App->eclipse_sql($sql);
     $clause = '';
     $separator = '';
     while (($row = mysql_fetch_row($result)) != null) {
@@ -657,8 +669,13 @@ EOHTML;
    * (i.e. subqueries).
    */
   function get_resource_ids_for_category($category) {
+  	global $App;
+  	
     $sql = "select resource.id from resource join resource_category on (resource.id = resource_category.resource_id) join category on (resource_category.category_id = category.id) where category.name = '$category'";
-    $result = mysql_query($sql);
+    
+    trace ($sql);
+    
+    $result = $App->eclipse_sql($sql);
     $clause = '';
     $separator = '';
     while (($row = mysql_fetch_row($result)) != null) {

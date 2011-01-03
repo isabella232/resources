@@ -52,7 +52,7 @@ include($App->getProjectCommon());
 	 * resources root page.
 	 */
 	$id = $App->getHTTPParameter('id');
-	if (!preg_match('/\d+/', $id)) {
+	if (!preg_match('/^\d+$/', $id)) {
 		header ("Location: /resources");
 		exit;
 	}

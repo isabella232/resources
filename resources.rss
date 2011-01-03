@@ -19,8 +19,12 @@
 	#
 	# Description: This page generates an RSS feed containing resources. 
 	#   Optional filter parameters can be provided (see scripts/filter_core.php
-    #   for information) to prune the list.
+	#   for information) to prune the list.
 	#****************************************************************************
+		
+	require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/app.class.php");
+	$App = new App();
+	
 	header('Content-type: application/rss+xml;charset=UTF-8');
 	
 	// The next line needs to occur first in the file.
@@ -47,7 +51,7 @@
 	$host = $_SERVER['HTTP_HOST'];
 	$resources_root = "http://$host/resources";
 	if (array_key_exists('title', $_GET)) {
-		$title = $_GET['title'];
+		$title = htmlentities($_GET['title']);
 	} else {
 		$title = "Eclipse Resources";
 	}

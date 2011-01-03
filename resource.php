@@ -1,4 +1,5 @@
-<?php  /*******************************************************************************
+<?php  
+/*******************************************************************************
  * Copyright (c) 2006 Eclipse Foundation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,10 +12,11 @@
 
 	#*****************************************************************************
 	#
-	# template.php
+	# resource.php
 	#
 	# Author: 		Wayne Beaton
 	# Date:			February 16, 2006
+	# Updated:      January 2, 2011 to prevent SQL injection attack.
 	#
 	# Description:
 	#    This file generates a page that displays information about a single
@@ -48,8 +50,8 @@ include($App->getProjectCommon());
 	
 	/*
 	 * Get the value of the 'id' parameter. If it is not
-	 * a sequence of digits, bail out and redirect to the
-	 * resources root page.
+	 * a sequence of digits (i.e. a potentially valid resource id), 
+	 * bail out and redirect to the resources root page.
 	 */
 	$id = $App->getHTTPParameter('id');
 	if (!preg_match('/^\d+$/', $id)) {

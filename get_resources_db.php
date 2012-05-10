@@ -38,6 +38,13 @@ $connection->disconnect();
 
 function dump_table($name) {
 	global $App;
+	
+	$result = $App->eclipse_sql("show create table $name");
+	while ($row = mysql_fetch_assoc($result)) {
+		echo $row['Create Table'];
+		echo ";\n";
+	}
+	
 	$result = $App->eclipse_sql("select * from $name");
 	while ($row = mysql_fetch_assoc($result)) {
 		$columns = array_keys($row);

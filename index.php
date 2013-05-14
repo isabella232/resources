@@ -83,7 +83,7 @@ trace_file_info(__FILE__);
 
 	<div id="rightcolumn">
 		<div class="sideitem">
-		  <iframe src=http://www.youtube.com/subscribe_widget?p=EclipseFdn scrolling="no" frameborder="0" style="height:120px;width:240px;"></iframe> <br/><font size="-2">For podcasts, webinars, and more...</font>
+		  <iframe src=http://www.youtube.com/subscribe_widget?p=EclipseFdn scrolling="no" frameborder="0" style="height:101px;width:240px;"></iframe> <br/><font size="-2">For podcasts, webinars, and more...</font>
 		
 		</div>
 		<div class="sideitem">

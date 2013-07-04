@@ -526,14 +526,8 @@ EOHTML;
     }
 
     if ($filter->author) {
-      $author = addslashes($filter->author);
-      // The following line works with MySQL 4.5+
-      // $sql .= " and (resource.id in (select resource.id from resource join link on (link.resource_id = resource.id) join link_author on (link.id = link_author.link_id) join author on (link_author.author_id = author.id) where author.name = '$author'))";
-       
-      $resource_ids = $this->get_resource_ids_for_author($author);
-      if ($resource_ids)
-      $sql .= " and (resource.id in ($resource_ids))";
-       
+      $author = $App->sqlSanitize($filter->author);
+      $sql .= " and (resource.id in (select resource.id from resource join link on (link.resource_id = resource.id) join link_author on (link.id = link_author.link_id) join author on (link_author.author_id = author.id) where author.name like '$author'))";       
     }
 
     if ($filter->recent) {
@@ -638,29 +632,6 @@ EOHTML;
       $authors[$row[0]] = $row[1];
     }
     return $authors;
-  }
-
-  /*
-   * This function goes away when we upgrade to MySQL 4.5 or better.
-   * It exists because MySQL 4.0.x doesn't support nested selects
-   * (i.e. subqueries).
-   */
-  function get_resource_ids_for_author($author) {
-  	global $App;
-  	
-    $sql = "select resource.id from resource join link on (link.resource_id = resource.id) join link_author on (link.id = link_author.link_id) join author on (link_author.author_id = author.id) where author.name = '$author'";
-
-    trace ($sql);
-    
-    $result = $App->eclipse_sql($sql);
-    $clause = '';
-    $separator = '';
-    while (($row = mysql_fetch_row($result)) != null) {
-      //if (!$row[0]) continue;
-      $clause.=$separator.$row[0];
-      $separator =', ';
-    }
-    return $clause;
   }
 
   /*

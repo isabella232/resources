@@ -20,7 +20,7 @@ trace_file_info(__FILE__);
  * SQL injection attack.
  */
 function getHTTPParameter($name) {
-	return asSafeSQL(html_entity_decode(getRawHttpParameter($name)));
+	return asSafeSQL(htmlspecialchars(getRawHttpParameter($name)));
 }
 
 function getRawHttpParameter($name) {
@@ -93,7 +93,7 @@ class Filter {
 		if (!in_array($this->type, $this->valid_types)) {
 			$this->type = null;
 		}
-		$this->category = preg_replace('/[^\w\s]/', '', getHTTPParameter('category'));
+		$this->category = getHTTPParameter('category');
 		if (getHTTPParameter('author')) $this->author = html_entity_decode(getHTTPParameter('author'));
 		if (getHTTPParameter('since')) 
 			$this->since = strtotime(getHTTPParameter('since'));

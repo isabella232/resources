@@ -93,7 +93,7 @@ class Filter {
 		if (!in_array($this->type, $this->valid_types)) {
 			$this->type = null;
 		}
-		$this->category = getHTTPParameter('category');
+		$this->category = preg_replace('/[^\w\s]/', '', getHTTPParameter('category'));
 		if (getHTTPParameter('author')) $this->author = html_entity_decode(getHTTPParameter('author'));
 		if (getHTTPParameter('since')) 
 			$this->since = strtotime(getHTTPParameter('since'));

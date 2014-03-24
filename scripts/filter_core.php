@@ -201,7 +201,7 @@ class Filter {
 		}
 	
 		if ($this->author) {
-			$summary .= " authored by $this->author";
+			$summary .= " authored by " . htmlspecialchars($this->author);
 		}
 		
 		if ($this->show_recent()) {
@@ -209,7 +209,7 @@ class Filter {
 		}
 				
 		if ($this->category) {
-			$summary .= " that cover \"$this->category\"";
+			$summary .= " that cover \"" . htmlspecialchars($this->category) ."\"";
 		} 
 				
 		return $summary;

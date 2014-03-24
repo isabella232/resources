@@ -4,9 +4,7 @@
  * Make sure that we can handle any protocol;
  * it should be either http or itpc.
  */
-$protocol = $_SERVER['SERVER_PROTOCOL']; // result should be something like 'HTTP/1.0'
-$protocol = split('/', $protocol); 
-$protocol = strtolower($protocol[0]); // Prune off just the protocol name part
 
-header( 'Location: ' . $protocol . '://live.eclipse.org/eclipse_live_podcasts/feeds' ) ;
+/*live.eclipse.org has gone away, so this should simply point at the youtube.com channel*/
+header( 'Location: http://www.youtube.com/user/EclipseFdn' ) ;
 ?>

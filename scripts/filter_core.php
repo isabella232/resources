@@ -103,7 +103,7 @@ class Filter {
 	}
 	
 	function get_sort_fields($fields) {
-		$fields = split(',', $fields);
+		$fields = explode(',', $fields);
 		$sortby = array();
 		foreach($fields as $field) {
 			$field = trim($field);

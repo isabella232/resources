@@ -23,6 +23,8 @@
 		echo "==$resource->title==\n$resources->description\n";
 		foreach($resource->links as $link) {
 			$title = $link->title ? $link->title : $resource->title;
+			$path = $link->path;
+			if (preg_match('/^\//', $path)) path = "http://www.eclipse.org$path";
 			echo "*[$link->path $link->title]\n";
 		}
 		echo "\n\n";

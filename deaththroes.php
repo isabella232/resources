@@ -20,7 +20,9 @@
 	$resources = $resources->get_resources($filter);
 	
 	foreach($resources as $resource) {
-		echo "==$resource->title==\n$resources->description\n";
+		$title = preg_replace('/\s+/', ' ', $resource->title);
+		$description = preg_replace('/\s+/',' ', $resource->description);
+		echo "==$title==\n$description\n";
 		foreach($resource->links as $link) {
 			$title = $link->title ? $link->title : $resource->title;
 			$path = $link->path;

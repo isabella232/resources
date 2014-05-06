@@ -25,5 +25,5 @@
 			$title = $link->title ? $link->title : $resource->title;
 			echo "*[$link->path $link->title]\n";
 		}
-		echo "/n/n";
+		echo "\n\n";
 	}

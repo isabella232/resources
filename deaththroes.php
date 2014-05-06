@@ -25,7 +25,7 @@
 			$title = $link->title ? $link->title : $resource->title;
 			$path = $link->path;
 			if (preg_match('/^\//', $path)) path = "http://www.eclipse.org$path";
-			echo "*[$link->path $link->title]\n";
+			echo "*[$path $title]\n";
 		}
 		echo "\n\n";
 	}
